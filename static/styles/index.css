@@ -1,0 +1,117 @@
+html {
+    height: 100%;
+    background-image: url(/static/images/background.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    color: white;
+}
+
+body {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    backdrop-filter: blur(8px);
+}
+
+div.center_div {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+button.rw-ui {
+    background-color: black;
+    width: 50% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+span {
+    text-align: center;
+    color: white;
+}
+
+.machine-process {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+img#machine-image {
+    position: relative;
+    width: 545px;
+    height: 477px;
+}
+
+img#machine-animation {
+    display: none;
+    position: absolute;
+    top: calc(50% - 96px);
+    left: calc(50% - 162px);
+    width: 323px;
+    height: 208px;
+}
+
+div.tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#cryptic-form div.rw-box {
+    width: 95%;
+}
+
+#cryptic-form .rw-box.tab-bar {
+    justify-content: start;
+}
+
+#cryptic-form .rw-box.tab-bar:has(> span) {
+    justify-content: end;
+}
+
+.mini-form {
+    display: flex;
+    flex-direction: row;
+}
+
+div.col-1 {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    width: 50%;
+    text-align: left;
+}
+
+div.col-2 {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    width: 50%;
+    text-align: left;
+}
+
+div.form-group {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+div.form-group span.label {
+    display: flex;
+    align-self: center;
+}

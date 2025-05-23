@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% block title %}{% endblock %} | Cryptic Spires
+        </title>
+        {% block styles %}{% endblock %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/rw.css') }}">
+        <!-- Uncomment this once online: -->
+        <!-- <link rel="stylesheet" href="https://rain-world-map.github.io/rw.css"> -->
+        <!-- CSS file by Henpemaz -->
+        {% block prescripts %}{% endblock %}
+    </head>
+    <body>
+        <div class="rw-title">Cryptic Spires</div>
+        <div class="rw-box">
+            <div class="rw-box" id="tab-bar">
+                <form id="tab-bar">
+                    <label class="difficulty-btn">
+                        <input type="radio" class="rw-ui" id="home-button" name="tab-menu" autocomplete="off">
+                        <img id="home-button" src="{{ url_for('static', filename='images/home.png') }}">
+                    </label>
+                    <label class="difficulty-btn">
+                        <input type="radio" class="rw-ui" id="sym-button" name="tab-menu" autocomplete="off">
+                        <img id="sym-button"  src="{{ url_for('static', filename='images/symmetric.png') }}">
+                    </label>
+                </form>
+                <div class="rw-subtext" id="tab-name">Symmetric Algorithms</div>
+            </div>
+            <div class="rw-text">{% block description %}{% endblock %}</div>
+        </div>
+        {% block content %}
+        <div class="center_div">
+            <button class="region-button rw-ui rw-text" onclick="saySomething()">say something</button>
+            <span id="something"></span>
+        </div>
+        {% endblock %}
+    </body>
+    {% block postscripts %}
+    <script>
+        function saySomething()
+        {
+            document.querySelector("span#something").textContent = "something";
+        }
+    </script>
+    {% endblock %}
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block prescripts %}
+<script>
+    page = "home";
+</script>
+{% endblock %}
+
+{% block description %}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna vulputate euismod. Maecenas egestas enim sed mauris aliquam ornare. Nullam ac enim suscipit, maximus felis in, volutpat urna. Nulla eget rutrum sem, sed consectetur lectus. Ut commodo ut risus sed pretium. Maecenas pulvinar ultrices risus vel cursus. Praesent lectus orci, congue nec elit ac, porta semper lorem. Aliquam sodales sapien felis, eget imperdiet ante accumsan ac. Nunc varius erat hendrerit fermentum varius. Nulla facilisi. Donec maximus ac risus in vulputate. Sed eu ex vitae mi laoreet fringilla vitae et lacus. In efficitur sagittis purus.
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+{% block postscripts %}
+<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block title %}Symmetric Algorithms{% endblock %}
+{% block prescripts %}
+<script>
+    page = "symmetric";
+</script>
+{% endblock %}
+
+{% block description %}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna vulputate euismod. Maecenas egestas enim sed mauris aliquam ornare. Nullam ac enim suscipit, maximus felis in, volutpat urna. Nulla eget rutrum sem, sed consectetur lectus. Ut commodo ut risus sed pretium. Maecenas pulvinar ultrices risus vel cursus. Praesent lectus orci, congue nec elit ac, porta semper lorem. Aliquam sodales sapien felis, eget imperdiet ante accumsan ac. Nunc varius erat hendrerit fermentum varius. Nulla facilisi. Donec maximus ac risus in vulputate. Sed eu ex vitae mi laoreet fringilla vitae et lacus. In efficitur sagittis purus.
+{% endblock %}
+
+{% block content %}
+
+<div class="rw-box">
+    <form id="cryptic-form">
+        <div class="rw-box tab-bar">
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="des-button" name="tab-menu" value="des" autocomplete="off">
+                    <span class="rw-text">DES</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="aes-button" name="tab-menu" value="aes" autocomplete="off">
+                    <span class="rw-text">AES</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="bf-button" name="tab-menu" value="blowfish" autocomplete="off">
+                    <span class="rw-text">Blowfish</span>
+                </div>
+            </label>
+        </div>
+        <div class="rw-box">
+            <!-- DES form -->
+            <div class="mini-form" id="des-form">
+                <div class="col-1">
+                    <div class="rw-bigtext">Data Encryption Standard (DES)</div>
+                    <div class="rw-text">des</div>
+                </div>
+                <div class="col-2 rw-text">
+                    <!-- Form contents -->
+                    <div class="form-group">
+                        <div class="rw-box tab-bar">
+                            <span class="rw-text label">Input type:</span>
+                            <label>
+                                <div class="tab-btn">
+                                    <input type="radio" class="rw-ui" id="text-input" name="input-type" value="text" autocomplete="off">
+                                    <span class="rw-text">TEXT</span>
+                                </div>
+                            </label>
+                            <label>
+                                <div class="tab-btn">
+                                    <input type="radio" class="rw-ui" id="file-input" name="input-type" value="file" autocomplete="off">
+                                    <span class="rw-text">FILE</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="text-input-form">
+                        <!-- TEXT INPUT -->
+                        <textarea name="text-input-textbox" class="rw-ui rw-text" placeholder="Input text here..."></textarea>
+                    </div>
+                    <div class="form-group" id="file-input-form">
+                        <!-- FILE INPUT -->
+                        <div class="rw-box" id="rw-file-picker">
+                            <input type="file" name="file-input" autocomplete="off" style="display: none;">
+                            <button class="rw-ui rw-text" type="button">CHOOSE FILE</button>
+                            <span class="rw-text">No file chosen</span>
+                        </div>
+                    </div>
+                    <button class="rw-ui rw-text" type="submit">ENCRYPT</button>
+                </div>
+            </div>
+            <!-- AES form -->
+            <div class="mini-form" id="aes-form">
+                <div class="col-1">
+                    <div class="rw-bigtext">Advanced Encryption Standard (AES)</div>
+                    <div class="rw-text">aes</div>
+                </div>
+                <div class="col-2 rw-text">
+                    <!-- Form contents -->
+                    banananananananana
+                </div>
+            </div>
+            <!-- Blowfish form -->
+            <div class="mini-form" id="bf-form">
+                <div class="col-1">
+                    <div class="rw-bigtext">Blowfish</div>
+                    <div class="rw-text">blowfish</div>
+                </div>
+                <div class="col-2 rw-text">
+                    <!-- Form contents -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="machine-process" id="the-machine">
+    <img id="machine-image" src="{{ url_for('static', filename='images/machine-processing.png') }}">
+    <img id="machine-animation" style="filter: brightness(1.9);" src="{{ url_for('static', filename='images/machine-processing.gif') }}">
+</div>
+
+<div class="rw-box">
+    <div class="rw-bigtext" id="status-text" style="color: #A9A4B200; animation: text-blinker 1.6s linear infinite;" >STATUS: READY</div>
+    <div class="rw-text"></div>
+</div>
+
+{% endblock %}
+{% block postscripts %}
+<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/formtabs.js') }}"></script>
+{% endblock %}

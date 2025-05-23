@@ -1,0 +1,432 @@
+/** CSS file by Henpemaz on GitHub
+ ** from: https://henpemaz.github.io/Rain-World-Interactive-Map/rw.css
+ **/
+
+/* FONTS */
+@font-face {
+    font-family: "Rodondo";
+    src: url(/static/fonts/Rodondo.otf) format("OpenType");
+}
+
+.rw-title {
+    font-family: "Rodondo";
+    font-size: 6rem;
+    text-align: center;
+    line-height: 75%;
+}
+
+.rw-bigtext {
+    font-family: 'Segoe UI';
+    font-size: 1.3125rem;
+    font-weight: 600;
+}
+
+.rw-text {
+    font-family: 'Segoe UI';
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* RW BUTTON START */
+@keyframes border-blinker {
+    50% {
+        border-color: rgba(255, 255, 255, 255);
+    }
+}
+
+@keyframes text-blinker {
+    50% {
+        color: rgba(255, 255, 255, 255);
+    }
+}
+
+@keyframes flasher {
+    0% {
+        background-color: #A9A4B2;
+        /* menu lightgray */
+    }
+}
+
+
+/* RW UI START */
+
+/* BUTTON */
+button.rw-ui {
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    border-radius: 8px;
+    border: 2px solid #A9A4B200;
+    /* alpha 0 for fading */
+    box-sizing: border-box;
+    /* correctness */
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    color: #A9A4B2;
+    /* menu lightgray */
+    transition: color 0.3s;
+}
+
+button.rw-ui:hover {
+    animation: border-blinker 0.8s linear infinite, flasher 0.3s;
+    color: white;
+}
+
+button.rw-ui::before {
+    /* outline that expands */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: -2px;
+    /* undo parent border */
+    border-radius: 8px;
+    border: 2px solid #A9A4B2;
+    /* menu lightgray */
+    transition: padding 0.3s, border-color 0.3s, margin 0.3s;
+}
+
+button.rw-ui:hover::before {
+    border-color: white;
+    padding: 4px;
+    margin: -6px;
+}
+
+button.rw-ui:active::before {
+    border-color: white;
+    padding: unset;
+    margin: -2px;
+}
+
+/* BUTTON END */
+
+/* TOGGLES */
+input[type='checkbox'].rw-ui,
+input[type='radio'].rw-ui {
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    border-radius: 8px;
+    border: 2px solid #A9A4B200;
+    /* alpha 0 for fading */
+    box-sizing: border-box;
+    /* correctness */
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+input[type='checkbox'].rw-ui::before,
+input[type='radio'].rw-ui::before {
+    /* outline that expands */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: -2px;
+    /* undo parent border */
+    border-radius: 8px;
+    border: 2px solid #4B4653;
+    /* darkgray */
+    transition: padding 0.3s, border-color 0.3s, margin 0.3s;
+}
+
+/* inserted span */
+input[type='checkbox'].rw-ui+span,
+input[type='radio'].rw-ui+span {
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    top: calc(50% - 12px);
+    /* proof that CSS is stupid, cant fucking vertical center text */
+    width: 100%;
+    text-align: center;
+    color: #4B4653;
+    /* darkgray */
+    user-select: none;
+    transition: color 0.3s;
+}
+
+/* inserted 50x50 image */
+input[type='checkbox'].rw-ui+img,
+input[type='radio'].rw-ui+img {
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.72;
+
+    left: calc(50% - 25px);
+    user-select: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+/* checked */
+input[type='checkbox'].rw-ui:checked::before,
+input[type='radio'].rw-ui:checked::before {
+    border-color: #A9A4B2;
+    /* lightgray */
+}
+
+input[type='checkbox'].rw-ui:checked::after,
+input[type='radio'].rw-ui:checked::after {
+    /* extra outline */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: -6px;
+    padding: 4px;
+    border-radius: 8px;
+    border: 2px solid #A9A4B2;
+    /* lightgray */
+    transition: padding 0.3s, border-color 0.3s, margin 0.3s;
+}
+
+input[type='checkbox'].rw-ui:checked+span,
+input[type='radio'].rw-ui:checked+span {
+    color: #A9A4B2;
+    /* lightgray */
+}
+
+input[type='checkbox'].rw-ui:checked+img,
+input[type='radio'].rw-ui:checked+img {
+    z-index: 2;
+    opacity: 1.0;
+}
+
+/* hover */
+input[type='checkbox'].rw-ui:hover,
+input[type='radio'].rw-ui:hover {
+    animation: border-blinker 0.8s linear infinite, flasher 0.3s;
+}
+
+input[type='checkbox'].rw-ui:hover::before,
+input[type='radio'].rw-ui:hover::before {
+    margin: -6px;
+    padding: 4px;
+    border-color: white;
+}
+
+input[type='checkbox'].rw-ui:checked:hover::after,
+input[type='radio'].rw-ui:checked:hover::after {
+    margin: -10px;
+    padding: 8px;
+    border-color: white;
+}
+
+input[type='checkbox'].rw-ui:hover+span,
+input[type='radio'].rw-ui:hover+span {
+    color: white;
+}
+
+input[type='checkbox'].rw-ui:hover+img,
+input[type='radio'].rw-ui:hover+img {
+    opacity: 1.0;
+    transform: scaleX(1.2) scaleY(1.2);
+}
+
+/* active */
+input[type='checkbox'].rw-ui:active,
+input[type='radio'].rw-ui:active {
+    animation: border-blinker 0.8s linear infinite, flasher 0.3s;
+}
+
+input[type='checkbox'].rw-ui:active::before,
+input[type='radio'].rw-ui:active::before {
+    margin: -2px;
+    padding: 0px;
+    border-color: white;
+}
+
+input[type='checkbox'].rw-ui:checked:active::after,
+input[type='radio'].rw-ui:checked:active::after {
+    margin: -6px;
+    padding: 4px;
+    border-color: white;
+}
+
+input[type='checkbox'].rw-ui:active+img,
+input[type='radio'].rw-ui:active+img {
+    transform: none;
+}
+
+/* TOGGLES END */
+
+/* CHECKBOX MIXIN */
+
+input[type='checkbox'].rw-ui-ckb::before {
+    content: "\2714";
+    text-align: center;
+    font-size: 1.6em;
+    font-weight: 600;
+    color: #A9A4B200;
+    transition: padding 0.3s, border-color 0.3s, margin 0.3s, color 0.3s;
+}
+
+input[type='checkbox'].rw-ui-ckb:hover::before {
+    color: #A9A4B288;
+}
+
+input[type='checkbox'].rw-ui-ckb:checked::before {
+    color: #A9A4B2;
+}
+
+input[type='checkbox'].rw-ui-ckb:checked:hover::before {
+    color: white;
+}
+
+input[type='checkbox'].rw-ui-ckb:active::before {
+    color: white;
+}
+
+input[type='checkbox'].rw-ui-ckb+label {
+    position: relative;
+    left: 10px;
+    top: -10px;
+    color: #4B4653;
+    /* darkgray */
+    transition: color 0.3s;
+}
+
+input[type='checkbox'].rw-ui-ckb:hover+label {
+    color: #A9A4B2;
+}
+
+input[type='checkbox'].rw-ui-ckb:checked+label {
+    color: #A9A4B2;
+}
+
+input[type='checkbox'].rw-ui-ckb:checked:hover+label {
+    color: white;
+}
+
+input[type='checkbox'].rw-ui-ckb:active+label {
+    color: white;
+}
+
+/* RW UI END */
+
+/* RW UI 2 START */
+.rw-box {
+    width: 80%;
+    display: flex !important;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    background-color: #000000C3;
+    border-radius: 8px;
+    border: 2px solid #4B4653;
+    border-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.difficulty-btn {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+    position: relative;
+}
+
+.rw-subtext {
+    margin-top: 1rem;
+    font-family: 'Segoe UI';
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+label:has(> .tab-btn) {
+    display: block;
+    width: 25%;
+    max-width: 25vmin;
+}
+
+span.label {
+    margin-right: 20px;
+}
+
+.tab-btn {
+    font-size: 0.8rem;
+    height: 100%;
+    position: relative;
+    margin-bottom: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tab-btn input[type='radio'].rw-ui {
+    height: 100%;
+}
+
+textarea.rw-ui {
+    width: 100%;
+    height: 20vmin;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 2px solid #A9A4B22F;
+    resize: none;
+    color: white;
+    padding: 5px;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+textarea.rw-ui:hover, textarea.rw-ui:active {
+    animation: border-blinker 0.8s linear infinite;
+    color: white;
+}
+
+input[type="file"].rw-ui {
+    background-color: black;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid white;
+    margin-bottom: 20px;
+}
+
+input[type="file"].rw-ui::file-selector-button {
+    background-color: black;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid white;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+input[type="file"].rw-ui::file-selector-button:hover {
+    animation: border-blinker 0.8s linear infinite, flasher 0.3s;
+    color: white;
+}
+
+#rw-file-picker {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+#rw-file-picker button.rw-ui {
+    width: fit-content !important;
+    margin-left: 0 !important;
+    margin-right: 5px !important;
+}
+
+#rw-file-picker span {
+    align-self: center;
+}
