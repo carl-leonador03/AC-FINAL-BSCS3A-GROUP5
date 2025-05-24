@@ -1,6 +1,5 @@
-from hashlib import sha1 as SHA1, sha256 as SHA256, md5 as MD5, blake2b
+from hashlib import sha1 as SHA1, sha256 as SHA256, md5 as MD5, blake2b, sha3_256 as SHA3_256
 
-import hashlib      # for FSB
 import gostcrypto
 
 from io import BytesIO
@@ -37,13 +36,13 @@ def blake2(data: str | bytes) -> str:
     
     return blake2_hash.hexdigest()
 
-def fsb(data: str | bytes) -> str:
-    """Convenience function for hashing with FSB hashing.
+def sha3_256(data: str | bytes) -> str:
+    """Convenience function for hashing with SHA3-256 hashing.
     Returns a hex digested string."""
-    fsb_hash = hashlib.new('fsb')
-    fsb_hash.update(data.encode() if isinstance(data, str) else data)
+    sha3_256_hash = SHA3_256()
+    sha3_256_hash.update(data.encode() if isinstance(data, str) else data)
     
-    return fsb_hash.hexdigest()
+    return sha3_256_hash.hexdigest()
 
 def gost(data: str | bytes) -> str:
     """Convenience function for hashing with GOST hashing.
