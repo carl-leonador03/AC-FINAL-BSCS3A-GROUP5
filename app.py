@@ -3,6 +3,7 @@ from base64 import b64decode, b64encode
 
 from sym import des, aes, blowfish, idea
 from asym import rsa, ecc, generate_keys
+from hash import sha1, sha256, md5, blake2, fsb, gost
 
 app = Flask(__name__)
 
@@ -190,8 +191,46 @@ def asym():
 
     return render_template("asymmetric.html")
 
-@app.route("/hash")
+@app.route("/hash", methods=['POST', 'GET'])
 def hash():
+    if request.method == 'POST':
+        # request.form was empty for some reason
+        form = request.get_json(force = True)
+        hash = form['hash']
+
+        hash_funcs = {
+            "sha1": lambda x: sha1(x),
+            "sha256": lambda x: sha256(x),
+            "md5": lambda x: md5(x),
+            "blake2": lambda x: blake2(x),
+            "fsb": lambda x: fsb(x),
+            "gost": lambda x: gost(x)
+        }
+        
+        if form['hash'] in list(hash_funcs.keys()):
+            if form['input-type'] == 'file':
+                file = b64decode(form['file-input'])
+                hashed = hash_funcs[hash](file)
+                
+                return jsonify({"status": "hashed-file", "file": hashed})
+            
+            else:
+                # Process text
+                hashed = hash_funcs[hash](form['text-input-textbox'])
+                
+                return jsonify({"status": "hashed-text", "text": hashed})
+            
+        else:
+            return jsonify({"status": "unknown-hash"})
+
     return render_template("hashing.html")
+
+@app.route("/info")
+def info():
+    return render_template("info.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 app.run(debug=True)

@@ -70,6 +70,8 @@ div.tab-bar {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #cryptic-form div.rw-box {
@@ -179,4 +181,9 @@ textarea#public-key-textarea, textarea#private-key-textarea {
 
 button#copy-public-key, button#copy-private-key {
     display: none;
+}
+
+.left-al * {
+    flex-direction: start;
+    text-align: left;
 }

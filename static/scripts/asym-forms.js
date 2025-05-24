@@ -43,17 +43,20 @@ function b64toBlob(b64Data, contentType='', sliceSize=512)
 }
 
 function switchTab(t) {
+    const key_input = document.querySelector("div.text-input:has(> textarea)");
+
     if (t == "gen-keys")
     {
+        key_input.querySelector("textarea").required = false;
         document.querySelector("div#text-file-form").style.display = "none";
         document.querySelector("div#gen-keys-form").style.display = null;
     }
     else if (t == "encrypt" || t == "decrypt")
     {
+        key_input.querySelector("textarea").required = true;
+
         document.querySelector("div#text-file-form").style.display = null;
         document.querySelector("div#gen-keys-form").style.display = "none";
-
-        const key_input = document.querySelector("div.text-input:has(> textarea)");
 
         if (t == "encrypt")
         {
@@ -161,13 +164,19 @@ async function encryptDecryptInput(e) {
     document.querySelector("div#result-text-div").style.display = "none";
     document.querySelector("div#result-file-div").style.display = "none";
     
-    setTimeout(() => document.querySelector("#machine-animation").style.display = "flex", 500);
+    document.querySelector("#machine-animation").style.display = "flex";
     var formInput = {};
 
     for (var entry of new FormData(e.target).entries())
     {
         if (entry[0] == 'file-input' && entry[1].name != "")
         {
+            if (entry[1].size > 104857600) {
+                document.querySelector("#rw-file-picker").scrollIntoView();
+                document.querySelector("#machine-animation").style.display = "none";
+                return false;
+            }
+
             document.querySelector("div#status-text").textContent = "PREPARING FILE FOR UPLOAD";
 
             const fileBase64 = await new Promise((resolve, reject) => {
@@ -288,8 +297,13 @@ function filePickerClick(e) {
 
 function filePickerChange(e) {
     var file_picker = e.target.parentElement.children[0];
-    console.log(file_picker.files[0]);
-    document.querySelector("div#rw-file-picker span").textContent = (file_picker.files[0] != null) ? file_picker.files[0].name + " (" + humanFileSize(file_picker.files[0].size) + ")" : "No file chosen";
+    if (file_picker.files[0].size > 104857600)
+    {
+        document.querySelector("div#rw-file-picker span").textContent = "File too large! (" + humanFileSize(file_picker.files[0].size) + ")";
+        file_picker.files = null;
+    } else {
+        document.querySelector("div#rw-file-picker span").textContent = (file_picker.files[0] != null) ? file_picker.files[0].name + " (" + humanFileSize(file_picker.files[0].size) + ")" : "No file chosen";
+    }
 }
 
 function copyText(e)

@@ -37,7 +37,7 @@ def ecc(key: bytes, data: bytes, mode: int = 0) -> bytes:
 def rsa(key: bytes, data: bytes, mode: int = 0) -> bytes:
     """
     A convenience function to encrypt and decrypt data using
-    Rivest-Shamir-Adleman (RSA). Uses PKCS#1 OAEP or RSAES-OAEP cipher.
+    Rivest-Shamir-Adleman (RSA). Uses a hybrid implementation of RSA and AES encryption.
     """
     if mode == 0: # ENCRYPTION
         pbkey = RSA.import_key(key)

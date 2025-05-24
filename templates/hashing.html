@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}Symmetric Algorithms{% endblock %}
+{% block title %}Hashing Functions{% endblock %}
 {% block prescripts %}
 <script>
-    page = "symmetric";
+    page = "hashing";
 </script>
 {% endblock %}
 
@@ -12,60 +12,74 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
 
 {% block content %}
 
-<div class="rw-box" id="main-box" style="display: none !important">
+<div class="rw-box" id="main-box" style="display: none !important;">
     <form id="cryptic-form">
         <div class="rw-box tab-bar">
             <label>
                 <div class="tab-btn">
-                    <input type="radio" class="rw-ui" id="des-button" name="tab-menu" value="des" autocomplete="off">
-                    <span class="rw-text">DES</span>
+                    <input type="radio" class="rw-ui" id="sha1-button" name="hash" value="sha1" autocomplete="off">
+                    <span class="rw-text">SHA-1</span>
                 </div>
             </label>
             <label>
                 <div class="tab-btn">
-                    <input type="radio" class="rw-ui" id="aes-button" name="tab-menu" value="aes" autocomplete="off">
-                    <span class="rw-text">AES</span>
+                    <input type="radio" class="rw-ui" id="sha256-button" name="hash" value="sha256" autocomplete="off">
+                    <span class="rw-text">SHA-256</span>
                 </div>
             </label>
             <label>
                 <div class="tab-btn">
-                    <input type="radio" class="rw-ui" id="bf-button" name="tab-menu" value="blowfish" autocomplete="off">
-                    <span class="rw-text">Blowfish</span>
+                    <input type="radio" class="rw-ui" id="md5-button" name="hash" value="md5" autocomplete="off">
+                    <span class="rw-text">MD5</span>
                 </div>
             </label>
             <label>
                 <div class="tab-btn">
-                    <input type="radio" class="rw-ui" id="idea-button" name="tab-menu" value="idea" autocomplete="off">
-                    <span class="rw-text">IDEA</span>
+                    <input type="radio" class="rw-ui" id="blake2-button" name="hash" value="blake2" autocomplete="off">
+                    <span class="rw-text">BLAKE2</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="fsb-button" name="hash" value="fsb" autocomplete="off">
+                    <span class="rw-text">FSB</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="gost-button" name="hash" value="gost" autocomplete="off">
+                    <span class="rw-text">GOST</span>
                 </div>
             </label>
         </div>
         <div class="rw-box">
             <div class="mini-form" id="sym-form">
-                <div class="col-1" id="des-info">
-                    <div class="rw-bigtext">Data Encryption Standard (DES)</div>
-                    <div class="rw-text">des</div>
+                <div class="col-1" id="sha1-info">
+                    <div class="rw-bigtext">Secure Hashing Algorithm-1 (SHA-1)</div>
+                    <div class="rw-text">sha1</div>
                 </div>
-                <div class="col-1" id="aes-info">
-                    <div class="rw-bigtext">Advanced Encryption Standard (AES)</div>
-                    <div class="rw-text">aes</div>
+                <div class="col-1" id="sha256-info">
+                    <div class="rw-bigtext">Secure Hashing Algorithm-256 (SHA-256)</div>
+                    <div class="rw-text">sha256</div>
                 </div>
-                <div class="col-1" id="bf-info">
-                    <div class="rw-bigtext">Blowfish</div>
-                    <div class="rw-text">blowfish? why would you blow a fish?</div>
+                <div class="col-1" id="md5-info">
+                    <div class="rw-bigtext">Message-Digest 5 (MD5)</div>
+                    <div class="rw-text">yum yum yum part 5</div>
                 </div>
-                <div class="col-1" id="idea-info">
-                    <div class="rw-bigtext">International Data Encryption Algorithm (IDEA)</div>
-                    <div class="rw-text">guys, i have an idea.</div>
+                <div class="col-1" id="blake2-info">
+                    <div class="rw-bigtext">BLAKE2</div>
+                    <div class="rw-text">electric boogaloo</div>
+                </div>
+                <div class="col-1" id="fsb-info">
+                    <div class="rw-bigtext">Fast Syndrome-Based (FSB)</div>
+                    <div class="rw-text">syndrome based?</div>
+                </div>
+                <div class="col-1" id="gost-info">
+                    <div class="rw-bigtext">Gosudarstvennyy Standart (GOST)</div>
+                    <div class="rw-text">spoopy</div>
                 </div>
                 <div class="col-2 rw-text">
                     <!-- Form contents -->
-                    <div class="form-group text-input">
-                        <span class="rw-text label">Key:</span>
-                        <label>
-                            <input type="text" class="rw-ui rw-text" id="key-input" name="key-input" placeholder="Insert an 16-bit key (8 characters)" autocomplete="off" minlength="8" maxlength="8" required>
-                        </label>
-                    </div>
                     <div class="form-group">
                         <div class="rw-box tab-bar">
                             <span class="rw-text label">Input type:</span>
@@ -85,7 +99,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
                     </div>
                     <div class="form-group" id="text-input-form">
                         <!-- TEXT INPUT -->
-                        <textarea name="text-input-textbox" class="rw-ui rw-text" placeholder="Input plaintext or ciphertext here..."></textarea>
+                        <textarea name="text-input-textbox" class="rw-ui rw-text" placeholder="Input text here..."></textarea>
                     </div>
                     <div class="form-group" id="file-input-form">
                         <!-- FILE INPUT -->
@@ -96,8 +110,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
                         </div>
                     </div>
                     <div class="form-group hori-group">
-                        <button class="rw-ui rw-text" type="submit" id="encrypt-button">ENCRYPT</button>
-                        <button class="rw-ui rw-text" type="submit" id="decrypt-button">DECRYPT</button>
+                        <button class="rw-ui rw-text" type="submit" id="encrypt-button">HASH</button>
                     </div>
                 </div>
             </div>
@@ -113,7 +126,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
 <div class="rw-box" id="results-main-div">
     <div class="rw-bigtext" id="status-text" style="color: #A9A4B200; animation: text-blinker 1.6s linear infinite;" >STATUS: READY</div>
     <div id="result-text-div">
-        <div class="rw-subtext" id="result-note">The following result is encoded in base64 for easier transport as encrypted text output would not preserve specific bytes due to encoding issues.</div>
+        <div class="rw-subtext" id="result-note">The following is the hash result of the input.</div>
         <div class="rw-text" id="result-div">
             <textarea class="rw-ui rw-text" disabled id="result-textbox"></textarea>
             <button type="button" id="copy-button" class="rw-ui rw-text">COPY TO CLIPBOARD</button>
@@ -128,7 +141,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
 {% endblock %}
 {% block postscripts %}
 <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
-<script src="{{ url_for('static', filename='scripts/sym-forms.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/hash-forms.js') }}"></script>
 <script>
     document.querySelector("div#main-box").style.display = null;
 </script>

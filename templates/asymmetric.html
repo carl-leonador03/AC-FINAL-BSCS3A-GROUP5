@@ -12,7 +12,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
 
 {% block content %}
 
-<div class="rw-box">
+<div class="rw-box" id="main-box" style="display: none !important">
     <form id="cryptic-form">
         <div class="rw-box tab-bar">
             <label>
@@ -100,7 +100,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
                             <div class="rw-box" id="rw-file-picker">
                                 <input type="file" name="file-input" autocomplete="off" style="display: none;">
                                 <button class="rw-ui rw-text" type="button">CHOOSE FILE</button>
-                                <span class="rw-text">No file chosen</span>
+                                <span class="rw-text">No file chosen (max: 100 MB)</span>
                             </div>
                         </div>
                         <div class="form-group hori-group">
@@ -138,4 +138,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
 <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
 <script src="{{ url_for('static', filename='scripts/forms.js') }}"></script>
 <script src="{{ url_for('static', filename='scripts/asym-forms.js') }}"></script>
+<script>
+    document.querySelector("div#main-box").style.display = null;
+</script>
 {% endblock %}

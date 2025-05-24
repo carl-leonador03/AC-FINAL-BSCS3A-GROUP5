@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% block title %}About the Algorithms{% endblock %}
+{% block prescripts %}
+<script>
+    page = "info";
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="rw-box" id="main-box" style="display: none !important;">
+    <div class="rw-box tab-bar">
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="sym-button" name="algo-type" value="sym" autocomplete="off">
+                <span class="rw-text">SYMMETRIC</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="asym-button" name="algo-type" value="asym" autocomplete="off">
+                <span class="rw-text">ASYMMETRIC</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="hash-button" name="algo-type" value="hash" autocomplete="off">
+                <span class="rw-text">HASHING</span>
+            </div>
+        </label>
+    </div>
+    <div class="rw-box tab-bar" id="sym-bar">
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="des-button" name="algo" value="des" autocomplete="off">
+                <span class="rw-text">DES</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="aes-button" name="algo" value="aes" autocomplete="off">
+                <span class="rw-text">AES</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="bf-button" name="algo" value="bf" autocomplete="off">
+                <span class="rw-text">Blowfish</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="idea-button" name="algo" value="idea" autocomplete="off">
+                <span class="rw-text">IDEA</span>
+            </div>
+        </label>
+    </div>
+    <div class="rw-box tab-bar" id="asym-bar">
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="rsa-button" name="algo" value="rsa" autocomplete="off">
+                <span class="rw-text">RSA</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="ecc-button" name="algo" value="ecc" autocomplete="off">
+                <span class="rw-text">ECC</span>
+            </div>
+        </label>
+    </div>
+    <div class="rw-box tab-bar" id="hash-bar">
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="sha1-button" name="algo" value="sha1" autocomplete="off">
+                <span class="rw-text">SHA-1</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="sha256-button" name="algo" value="sha256" autocomplete="off">
+                <span class="rw-text">SHA-256</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="md5-button" name="algo" value="md5" autocomplete="off">
+                <span class="rw-text">MD5</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="blake2-button" name="algo" value="blake2" autocomplete="off">
+                <span class="rw-text">BLAKE2</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="fsb-button" name="algo" value="fsb" autocomplete="off">
+                <span class="rw-text">FSB</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="gost-button" name="algo" value="gost" autocomplete="off">
+                <span class="rw-text">GOST</span>
+            </div>
+        </label>
+    </div>
+    <div class="rw-box">
+        <div id="des-info">
+            <div class="rw-bigtext">Data Encryption Standard (DES)</div>
+            <div class="rw-text">des</div>
+        </div>
+        <div id="aes-info">
+            <div class="rw-bigtext">Advanced Encryption Standard (AES)</div>
+            <div class="rw-text">aes</div>
+        </div>
+        <div id="bf-info">
+            <div class="rw-bigtext">Blowfish</div>
+            <div class="rw-text">blowfish</div>
+        </div>
+        <div id="idea-info">
+            <div class="rw-bigtext">Internation Data Encryption Algorithm (IDEA)</div>
+            <div class="rw-text">idea</div>
+        </div>
+        <div id="rsa-info">
+            <div class="rw-bigtext">Rivest-Shamir-Adleman (RSA)</div>
+            <div class="rw-text">rsa</div>
+        </div>
+        <div id="ecc-info">
+            <div class="rw-bigtext">Elliptic Curve Cryptography (ECC)</div>
+            <div class="rw-text">ecc</div>
+        </div>
+        <div id="sha1-info">
+            <div class="rw-bigtext">Secure Hashing Algorithm-1 (SHA-1)</div>
+            <div class="rw-text">sha-1</div>
+        </div>
+        <div id="sha256-info">
+            <div class="rw-bigtext">Secure Hashing Algorithm-256 (SHA-256)</div>
+            <div class="rw-text">sha-256</div>
+        </div>
+        <div id="md5-info">
+            <div class="rw-bigtext">Message-Digest 5 (MD5)</div>
+            <div class="rw-text">md5</div>
+        </div>
+        <div id="blake2-info">
+            <div class="rw-bigtext">BLAKE2</div>
+            <div class="rw-text">blake2</div>
+        </div>
+        <div id="fsb-info">
+            <div class="rw-bigtext">Fast Syndrome-Based (FSB)</div>
+            <div class="rw-text">fsb</div>
+        </div>
+        <div id="gost-info">
+            <div class="rw-bigtext">Gosudarstvennyy Standart (GOST)</div>
+            <div class="rw-text">gost</div>
+        </div>
+    </div>
+</div>
+
+<div class="machine-process" id="the-machine">
+    <img id="machine-image" src="{{ url_for('static', filename='images/machine-processing.png') }}">
+    <img id="machine-animation" style="filter: brightness(1.9);" src="{{ url_for('static', filename='images/machine-processing.gif') }}">
+</div>
+
+{% endblock %}
+{% block postscripts %}
+<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/info-scripts.js') }}"></script>
+<script>
+    document.querySelector("div#main-box").style.display = null;
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}About the Project{% endblock %}
+{% block prescripts %}
+<script>
+    page = "about";
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="rw-box left-al">
+    <div class="rw-bigtext">Applied Cryptography Project by Group 5</div>
+    <div class="rw-text">
+        Members:
+        <ul>
+            <li>Carl Cyruz A. Leonador</li>
+            <li>Trixie Kathleen Zabala</li>
+            <li>Vohn Tibi Ayuban</li>
+        </ul>
+    </div>
+    <div class="rw-bigtext">Credits</div>
+    <div class="rw-text">
+        <ul>
+            <li>Rain World CSS by Henpemaz (can be accessed <a href="https://github.com/henpemaz/Rain-World-Interactive-Map/blob/master/docs/rw.css">here</a>)</li>
+        </ul>
+    </div>
+</div>
+
+<div class="machine-process" id="the-machine">
+    <img id="machine-image" src="{{ url_for('static', filename='images/machine-processing.png') }}">
+    <img id="machine-animation" style="filter: brightness(1.9);" src="{{ url_for('static', filename='images/machine-processing.gif') }}">
+</div>
+
+{% endblock %}
+{% block postscripts %}
+<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+<script>
+    async function fun() {
+        document.querySelector("#machine-animation").style.display = "flex";
+        await setTimeout(() => document.querySelector("#machine-animation").style.display = "none", Math.floor(Math.random() * (3000 - 500 + 1)) + 500);
+    }
+
+    function loopFun() {
+        var loop = function() {
+            fun();
+            setTimeout(loop, Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000);
+        }; loop();
+    }
+
+    loopFun();
+</script>
+{% endblock %}

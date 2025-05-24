@@ -1,18 +1,17 @@
 document.querySelector('input[type="radio"].rw-ui#text-input').addEventListener("click", () => switchInput("text"));
 document.querySelector('input[type="radio"].rw-ui#file-input').addEventListener("click", () => switchInput("file"));
 
-document.querySelector('button#encrypt-button').addEventListener("click", (e) => e.target.form.submitted = "encrypt");
-document.querySelector('button#decrypt-button').addEventListener("click", (e) => e.target.form.submitted = "decrypt");
-
 document.querySelector('div#rw-file-picker button').addEventListener("click", (e) => filePickerClick(e));
 document.querySelector('div#rw-file-picker input[type="file"]').addEventListener("change", (e) => filePickerChange(e));
 
-document.querySelector('input[type="radio"].rw-ui#des-button').addEventListener("click", () => switchTab("des"));
-document.querySelector('input[type="radio"].rw-ui#aes-button').addEventListener("click", () => switchTab("aes"));
-document.querySelector('input[type="radio"].rw-ui#bf-button').addEventListener("click", () => switchTab("bf"));
-document.querySelector('input[type="radio"].rw-ui#idea-button').addEventListener("click", () => switchTab("idea"));
+document.querySelector('input[type="radio"].rw-ui#sha1-button').addEventListener("click", () => switchTab("sha1"));
+document.querySelector('input[type="radio"].rw-ui#sha256-button').addEventListener("click", () => switchTab("sha256"));
+document.querySelector('input[type="radio"].rw-ui#md5-button').addEventListener("click", () => switchTab("md5"));
+document.querySelector('input[type="radio"].rw-ui#blake2-button').addEventListener("click", () => switchTab("blake2"));
+document.querySelector('input[type="radio"].rw-ui#fsb-button').addEventListener("click", () => switchTab("fsb"));
+document.querySelector('input[type="radio"].rw-ui#gost-button').addEventListener("click", () => switchTab("gost"));
 
-document.querySelector('form#cryptic-form').addEventListener("submit", (e) => encryptDecryptInput(e));
+document.querySelector('form#cryptic-form').addEventListener("submit", (e) => hashInput(e));
 
 document.querySelector('button#copy-button').addEventListener("click", (e) => copyText(e));
 
@@ -20,13 +19,15 @@ document.querySelector("div#result-note").style.display = "none";
 document.querySelector("div#result-text-div").style.display = "none";
 document.querySelector("div#result-file-div").style.display = "none";
 
-document.querySelector('input[type="radio"].rw-ui#des-button').checked = true;
+document.querySelector('input[type="radio"].rw-ui#sha1-button').checked = true;
 
 const tabDict = {
-    "des": ["des-info", 8, 8, "Insert an 8-byte key"],
-    "aes": ["aes-info", 16, 32, "Insert a 16-byte key (up to 32)"],
-    "bf": ["bf-info", 32, 56, "Insert a 32-byte key (up to 56)"],
-    "idea": ["idea-info", 16, 16, "Insert a 16-byte key"]
+    "sha1": "sha1-info",
+    "sha256": "sha256-info",
+    "md5": "md5-info",
+    "blake2": "blake2-info",
+    "fsb": "fsb-info",
+    "gost": "gost-info"
 }
 
 function switchTab(t) {
@@ -35,10 +36,7 @@ function switchTab(t) {
     if (Object.keys(tabDict).includes(t))
     {
 
-        document.querySelector("#" + tabDict[t][0]).style.display = "flex";
-        document.querySelector("input#key-input").setAttribute("minLength", tabDict[t][1]);
-        document.querySelector("input#key-input").setAttribute("maxLength", tabDict[t][2]);
-        document.querySelector("input#key-input").setAttribute("placeholder", tabDict[t][3]);
+        document.querySelector("#" + tabDict[t]).style.display = "flex";
     }
 
     try {
@@ -46,7 +44,7 @@ function switchTab(t) {
         {
             if (divInfo != t)
             {
-                document.querySelector("#" + tabDict[divInfo][0]).style.display = "none";
+                document.querySelector("#" + tabDict[divInfo]).style.display = "none";
             }
         }
     } catch (err) {
@@ -107,16 +105,13 @@ function b64toBlob(b64Data, contentType='', sliceSize=512)
     return blob;
 }
 
-async function encryptDecryptInput(e) {
+async function hashInput(e) {
     e.preventDefault();
-    const mode = e.target.submitted;
 
     document.querySelector("#the-machine").scrollIntoView({behavior: "smooth"});
     document.querySelector("div#result-note").style.display = "none";
     document.querySelector("div#result-text-div").style.display = "none";
     document.querySelector("div#result-file-div").style.display = "none";
-
-    console.log(e);
 
     setTimeout(() => document.querySelector("#machine-animation").style.display = "flex", 500);
     var formInput = {};
@@ -145,8 +140,6 @@ async function encryptDecryptInput(e) {
         }
     }
 
-    formInput['process-type'] = mode;
-
     if (formInput['input-type'] == "file")
     {
         const request = new XMLHttpRequest();
@@ -167,7 +160,7 @@ async function encryptDecryptInput(e) {
 
             });
 
-            request.open("POST", "/sym", true);
+            request.open("POST", "/hash", true);
             request.setRequestHeader("Content-Type", "application/json");
             request.send(JSON.stringify(formInput));
         })
@@ -177,7 +170,7 @@ async function encryptDecryptInput(e) {
     else // Assuming its a text input
     {
         var result = await fetch(
-            "/sym",
+            "/hash",
             {
                 method: "POST",
                 body: JSON.stringify(formInput),
@@ -188,13 +181,10 @@ async function encryptDecryptInput(e) {
         ).then((res) => res.json());
     }
 
-    document.querySelector("div#status-text").textContent = (mode == "encrypt") ? "ENCRYPTING" : "DECRYPTING";
-
-    console.log(result);
+    document.querySelector("div#status-text").textContent = "HASHING";
 
     if (result != null)
     {
-        if (formInput['input-type'] == "text")
         {
             var resultText = document.querySelector("textarea#result-textbox");
 
@@ -202,7 +192,7 @@ async function encryptDecryptInput(e) {
             {
                 resultText.value = "";
             } else {
-                resultText.value = result['text'];
+                resultText.value = formInput['input-type'] == "text" ? result['text'] : result['file'];
             }
 
             await setTimeout(
@@ -211,25 +201,6 @@ async function encryptDecryptInput(e) {
                     document.querySelector("div#status-text").style = null;
                     document.querySelector("div#result-text-div").style.display = "flex";
                     document.querySelector("div#result-note").style.display = "block";
-                    document.querySelector("#machine-animation").style.display = "none";
-                }, 1000
-            );
-        }
-        else if (formInput['input-type'] == "file")
-        {
-            var resultAnchor = document.querySelector("a#hidden-anchor");
-            var blobbed = b64toBlob(result['file'], formInput['file-type'])
-
-            resultAnchor.href = URL.createObjectURL(blobbed);
-
-            resultAnchor.download = formInput['tab-menu'] + (mode == 'encrypt') ? "_encrypted_" : "_decrypted_" + formInput['file-name'];
-
-            await setTimeout(
-                () => {
-                    document.querySelector("div#status-text").textContent = "RESULTS";
-                    document.querySelector("div#status-text").style = null;
-                    document.querySelector("div#result-file-div").style.display = "flex";
-                    document.querySelector("button#download-button").textContent = "DOWNLOAD (" + humanFileSize(blobbed.size) + ") [" + ((mode == 'encrypt') ? "ENCRYPTED" : "DECRYPTED") + "]";
                     document.querySelector("#machine-animation").style.display = "none";
                 }, 1000
             );
@@ -271,5 +242,5 @@ function copyText(e)
     }, 1000);
 }
 
-switchTab("des");
+switchTab("sha1");
 switchInput("text");

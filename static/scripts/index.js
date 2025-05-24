@@ -15,6 +15,21 @@ switch (page)
         document.querySelector('div#tab-name').textContent = "Asymmetric Algorithms";
         break;
     
+    case "hashing":
+        document.querySelector('input[type="radio"].rw-ui#hash-button').checked = true;
+        document.querySelector('div#tab-name').textContent = "Hashing Functions";
+        break;
+    
+    case "info":
+        document.querySelector('input[type="radio"].rw-ui#info-button').checked = true;
+        document.querySelector('div#tab-name').textContent = "About the Algorithms";
+        break;
+    
+    case "about":
+        document.querySelector('input[type="radio"].rw-ui#about-button').checked = true;
+        document.querySelector('div#tab-name').textContent = "About this project";
+        break;
+
     default:
         break;
 }
@@ -24,8 +39,8 @@ const tabNames = {
     "symmetric": "Symmetric Algorithms",
     "asymmetric": "Asymmetric Algorithms",
     "hashing": "Hashing Functions",
-    "about": "About the Algorithms",
-    "info": "About us"
+    "info": "About the Algorithms",
+    "about": "About this project"
 }
 
 document.querySelector('img#home-button').addEventListener("mouseover", () => showTabName('home'));
@@ -39,6 +54,18 @@ document.querySelector('input[type="radio"].rw-ui#sym-button').addEventListener(
 document.querySelector('img#asym-button').addEventListener("mouseover", () => showTabName('asymmetric'));
 document.querySelector('img#asym-button').addEventListener("mouseout", () => showTabName(page));
 document.querySelector('input[type="radio"].rw-ui#asym-button').addEventListener("click", () => changePage('asymmetric'));
+
+document.querySelector('img#hash-button').addEventListener("mouseover", () => showTabName('hashing'));
+document.querySelector('img#hash-button').addEventListener("mouseout", () => showTabName(page));
+document.querySelector('input[type="radio"].rw-ui#hash-button').addEventListener("click", () => changePage('hashing'));
+
+document.querySelector('img#info-button').addEventListener("mouseover", () => showTabName('info'));
+document.querySelector('img#info-button').addEventListener("mouseout", () => showTabName(page));
+document.querySelector('input[type="radio"].rw-ui#info-button').addEventListener("click", () => changePage('info'));
+
+document.querySelector('img#about-button').addEventListener("mouseover", () => showTabName('about'));
+document.querySelector('img#about-button').addEventListener("mouseout", () => showTabName(page));
+document.querySelector('input[type="radio"].rw-ui#about-button').addEventListener("click", () => changePage('about'));
 
 function showTabName(p)
 {
@@ -58,6 +85,18 @@ function changePage(p) {
         
         case "asymmetric":
             window.location = "/asym";
+            break;
+        
+        case "hashing":
+            window.location = "/hash";
+            break;
+        
+        case "info":
+            window.location = "/info";
+            break;
+        
+        case "about":
+            window.location = "/about";
             break;
         
         default:
