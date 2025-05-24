@@ -29,7 +29,7 @@ div.center_div {
 
 button.rw-ui {
     background-color: black;
-    width: 50% !important;
+    width: 75% !important;
     margin-left: auto !important;
     margin-right: auto !important;
 }
@@ -114,4 +114,69 @@ div.form-group {
 div.form-group span.label {
     display: flex;
     align-self: center;
+    width: 100%;
+}
+
+div.form-group.text-input {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    gap: 10px;
+    flex-shrink: 1;
+}
+
+.form-group label {
+    width: 100%;
+}
+
+.form-group.hori-group {
+    flex-direction: row;
+    gap: 10px;
+}
+
+.results-main-div {
+    flex-direction: column;
+}
+
+div#result-text-div {
+    
+    flex-direction: column;
+}
+
+div#result-div {
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0%;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0%;
+    }
+    
+    100% {
+        opacity: 100%;
+    }
+}
+
+textarea#public-key-textarea, textarea#private-key-textarea {
+    display: none;
+    width: unset;
+    margin-top: 10px;
+    max-height: 0;
+    transition: max-height 0.7s ease;
+}
+
+button#copy-public-key, button#copy-private-key {
+    display: none;
 }

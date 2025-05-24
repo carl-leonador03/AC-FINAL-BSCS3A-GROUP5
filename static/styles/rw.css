@@ -61,7 +61,6 @@ button.rw-ui {
     box-sizing: border-box;
     /* correctness */
     width: 100%;
-    height: 100%;
     margin: 0px;
     color: #A9A4B2;
     /* menu lightgray */
@@ -372,6 +371,7 @@ span.label {
 }
 
 textarea.rw-ui {
+    outline: 0;
     width: 100%;
     height: 20vmin;
     background-color: transparent;
@@ -385,6 +385,28 @@ textarea.rw-ui {
 }
 
 textarea.rw-ui:hover, textarea.rw-ui:active {
+    animation: border-blinker 0.8s linear infinite;
+    color: white;
+}
+
+textarea.rw-ui:focus {
+    animation: border-blinker 1.6s linear infinite;
+    color: white;
+}
+
+input[type="text"].rw-ui {
+    outline: 0;
+    width: 95%;
+    height: 1rem;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 2px solid #A9A4B22F;
+    color: white;
+    padding: 5px;
+    transition: color 0.3s;
+}
+
+input[type="text"].rw-ui:hover, input[type="text"].rw-ui:active, input[type="text"].rw-ui:focus {
     animation: border-blinker 0.8s linear infinite;
     color: white;
 }
@@ -429,4 +451,9 @@ input[type="file"].rw-ui::file-selector-button:hover {
 
 #rw-file-picker span {
     align-self: center;
+}
+
+textarea#result-textbox {
+    background-color: #000000C3;
+    width: unset;
 }

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %}Asymmetric Algorithms{% endblock %}
+{% block prescripts %}
+<script>
+    page = "asymmetric";
+</script>
+{% endblock %}
+
+{% block description %}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna vulputate euismod. Maecenas egestas enim sed mauris aliquam ornare. Nullam ac enim suscipit, maximus felis in, volutpat urna. Nulla eget rutrum sem, sed consectetur lectus. Ut commodo ut risus sed pretium. Maecenas pulvinar ultrices risus vel cursus. Praesent lectus orci, congue nec elit ac, porta semper lorem. Aliquam sodales sapien felis, eget imperdiet ante accumsan ac. Nunc varius erat hendrerit fermentum varius. Nulla facilisi. Donec maximus ac risus in vulputate. Sed eu ex vitae mi laoreet fringilla vitae et lacus. In efficitur sagittis purus.
+{% endblock %}
+
+{% block content %}
+
+<div class="rw-box">
+    <form id="cryptic-form">
+        <div class="rw-box tab-bar">
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="gen-keys-button" name="process" value="genkeys" autocomplete="off">
+                    <span class="rw-text">GENERATE KEYS</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="encrypt-button" name="process" value="encrypt" autocomplete="off">
+                    <span class="rw-text">ENCRYPT</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="decrypt-button" name="process" value="decrypt" autocomplete="off">
+                    <span class="rw-text">DECRYPT</span>
+                </div>
+            </label>
+        </div>
+        <div class="rw-text" style="align-self: center;">Select an asymmetric algorithm: </div>
+        <div class="rw-box tab-bar">
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="rsa-button" name="algo" value="rsa" autocomplete="off">
+                    <span class="rw-text">RSA</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="ecc-button" name="algo" value="ecc" autocomplete="off">
+                    <span class="rw-text">ECC</span>
+                </div>
+            </label>
+        </div>
+        <div class="rw-box">
+            <div class="mini-form" id="asym-form">
+                <div class="col-1" id="rsa-info">
+                    <div class="rw-bigtext">Rivest-Shamir-Adleman (RSA)</div>
+                    <div class="rw-text">rsa</div>
+                </div>
+                <div class="col-1" id="ecc-info">
+                    <div class="rw-bigtext">Elliptic Curve Cryptography (ECC)</div>
+                    <div class="rw-text">ecc</div>
+                </div>
+                <div class="col-2 rw-text">
+                    <!-- Form contents -->
+                    <div class="mini-form" id="gen-keys-form">
+                        <div class="rw-box rw-text">
+                            <button type="button" class="rw-ui rw-text" id="gen-keys-submit-button">GENERATE PRIVATE AND PUBLIC KEYS</button>
+                            <textarea class="rw-ui rw-text" id="public-key-textarea" disabled></textarea>
+                            <button type="button" class="rw-ui rw-text" id="copy-public-key">COPY PUBLIC KEY TO CLIPBOARD</button>
+                            <textarea class="rw-ui rw-text" id="private-key-textarea" disabled></textarea>
+                            <button type="button" class="rw-ui rw-text" id="copy-private-key">COPY PRIVATE KEY TO CLIPBOARD</button>
+                        </div>
+                    </div>
+                    <div id="text-file-form">
+                        <div class="form-group text-input">
+                            <textarea type="text" class="rw-ui rw-text" id="key-input" name="key-input" placeholder="Insert" autocomplete="off" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="rw-box tab-bar">
+                                <span class="rw-text label">Input type:</span>
+                                <label>
+                                    <div class="tab-btn">
+                                        <input type="radio" class="rw-ui" id="text-input" name="input-type" value="text" autocomplete="off">
+                                        <span class="rw-text">TEXT</span>
+                                    </div>
+                                </label>
+                                <label>
+                                    <div class="tab-btn">
+                                        <input type="radio" class="rw-ui" id="file-input" name="input-type" value="file" autocomplete="off">
+                                        <span class="rw-text">FILE</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" id="text-input-form">
+                            <!-- TEXT INPUT -->
+                            <textarea name="text-input-textbox" class="rw-ui rw-text" placeholder="Input plaintext or ciphertext here..."></textarea>
+                        </div>
+                        <div class="form-group" id="file-input-form">
+                            <!-- FILE INPUT -->
+                            <div class="rw-box" id="rw-file-picker">
+                                <input type="file" name="file-input" autocomplete="off" style="display: none;">
+                                <button class="rw-ui rw-text" type="button">CHOOSE FILE</button>
+                                <span class="rw-text">No file chosen</span>
+                            </div>
+                        </div>
+                        <div class="form-group hori-group">
+                            <button class="rw-ui rw-text" type="submit" id="process-button"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="machine-process" id="the-machine">
+    <img id="machine-image" src="{{ url_for('static', filename='images/machine-processing.png') }}">
+    <img id="machine-animation" style="filter: brightness(1.9);" src="{{ url_for('static', filename='images/machine-processing.gif') }}">
+</div>
+
+<div class="rw-box" id="results-main-div">
+    <div class="rw-bigtext" id="status-text" style="color: #A9A4B200; animation: text-blinker 1.6s linear infinite;" >STATUS: READY</div>
+    <div id="result-text-div">
+        <div class="rw-subtext" id="result-note">The following result is encoded in base64 for easier transport as encrypted text output would not preserve specific bytes due to encoding issues.</div>
+        <div class="rw-text" id="result-div">
+            <textarea class="rw-ui rw-text" disabled id="result-textbox"></textarea>
+            <button type="button" id="copy-button" class="rw-ui rw-text">COPY TO CLIPBOARD</button>
+        </div>
+    </div>
+    <div id="result-file-div">
+        <a id="hidden-anchor" href download hidden></a>
+        <button class="rw-ui rw-text" id="download-button">DOWNLOAD</button>
+    </div>
+</div>
+
+{% endblock %}
+{% block postscripts %}
+<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/forms.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/asym-forms.js') }}"></script>
+{% endblock %}

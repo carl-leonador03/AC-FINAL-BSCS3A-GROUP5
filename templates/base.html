@@ -23,26 +23,20 @@
                     </label>
                     <label class="difficulty-btn">
                         <input type="radio" class="rw-ui" id="sym-button" name="tab-menu" autocomplete="off">
-                        <img id="sym-button"  src="{{ url_for('static', filename='images/symmetric.png') }}">
+                        <img id="sym-button" src="{{ url_for('static', filename='images/symmetric.png') }}">
+                    </label>
+                    <label class="difficulty-btn">
+                        <input type="radio" class="rw-ui" id="asym-button" name="tab-menu" autocomplete="off">
+                        <img id="asym-button" src="{{ url_for('static', filename='images/asymmetric.png') }}">
                     </label>
                 </form>
-                <div class="rw-subtext" id="tab-name">Symmetric Algorithms</div>
+                <div class="rw-subtext" id="tab-name"></div>
             </div>
             <div class="rw-text">{% block description %}{% endblock %}</div>
         </div>
         {% block content %}
-        <div class="center_div">
-            <button class="region-button rw-ui rw-text" onclick="saySomething()">say something</button>
-            <span id="something"></span>
-        </div>
         {% endblock %}
     </body>
     {% block postscripts %}
-    <script>
-        function saySomething()
-        {
-            document.querySelector("span#something").textContent = "something";
-        }
-    </script>
     {% endblock %}
 </html>

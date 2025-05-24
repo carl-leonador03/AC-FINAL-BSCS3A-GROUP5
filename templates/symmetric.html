@@ -33,16 +33,39 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
                     <span class="rw-text">Blowfish</span>
                 </div>
             </label>
+            <label>
+                <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="idea-button" name="tab-menu" value="idea" autocomplete="off">
+                    <span class="rw-text">IDEA</span>
+                </div>
+            </label>
         </div>
         <div class="rw-box">
-            <!-- DES form -->
-            <div class="mini-form" id="des-form">
-                <div class="col-1">
+            <div class="mini-form" id="sym-form">
+                <div class="col-1" id="des-info">
                     <div class="rw-bigtext">Data Encryption Standard (DES)</div>
                     <div class="rw-text">des</div>
                 </div>
+                <div class="col-1" id="aes-info">
+                    <div class="rw-bigtext">Advanced Encryption Standard (AES)</div>
+                    <div class="rw-text">aes</div>
+                </div>
+                <div class="col-1" id="bf-info">
+                    <div class="rw-bigtext">Blowfish</div>
+                    <div class="rw-text">blowfish? why would you blow a fish?</div>
+                </div>
+                <div class="col-1" id="idea-info">
+                    <div class="rw-bigtext">International Data Encryption Algorithm (IDEA)</div>
+                    <div class="rw-text">guys, i have an idea.</div>
+                </div>
                 <div class="col-2 rw-text">
                     <!-- Form contents -->
+                    <div class="form-group text-input">
+                        <span class="rw-text label">Key:</span>
+                        <label>
+                            <input type="text" class="rw-ui rw-text" id="key-input" name="key-input" placeholder="Insert an 16-bit key (8 characters)" autocomplete="off" minlength="8" maxlength="8" required>
+                        </label>
+                    </div>
                     <div class="form-group">
                         <div class="rw-box tab-bar">
                             <span class="rw-text label">Input type:</span>
@@ -62,7 +85,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
                     </div>
                     <div class="form-group" id="text-input-form">
                         <!-- TEXT INPUT -->
-                        <textarea name="text-input-textbox" class="rw-ui rw-text" placeholder="Input text here..."></textarea>
+                        <textarea name="text-input-textbox" class="rw-ui rw-text" placeholder="Input plaintext or ciphertext here..."></textarea>
                     </div>
                     <div class="form-group" id="file-input-form">
                         <!-- FILE INPUT -->
@@ -72,28 +95,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
                             <span class="rw-text">No file chosen</span>
                         </div>
                     </div>
-                    <button class="rw-ui rw-text" type="submit">ENCRYPT</button>
-                </div>
-            </div>
-            <!-- AES form -->
-            <div class="mini-form" id="aes-form">
-                <div class="col-1">
-                    <div class="rw-bigtext">Advanced Encryption Standard (AES)</div>
-                    <div class="rw-text">aes</div>
-                </div>
-                <div class="col-2 rw-text">
-                    <!-- Form contents -->
-                    banananananananana
-                </div>
-            </div>
-            <!-- Blowfish form -->
-            <div class="mini-form" id="bf-form">
-                <div class="col-1">
-                    <div class="rw-bigtext">Blowfish</div>
-                    <div class="rw-text">blowfish</div>
-                </div>
-                <div class="col-2 rw-text">
-                    <!-- Form contents -->
+                    <div class="form-group hori-group">
+                        <button class="rw-ui rw-text" type="submit" id="encrypt-button">ENCRYPT</button>
+                        <button class="rw-ui rw-text" type="submit" id="decrypt-button">DECRYPT</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,13 +110,23 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
     <img id="machine-animation" style="filter: brightness(1.9);" src="{{ url_for('static', filename='images/machine-processing.gif') }}">
 </div>
 
-<div class="rw-box">
+<div class="rw-box" id="results-main-div">
     <div class="rw-bigtext" id="status-text" style="color: #A9A4B200; animation: text-blinker 1.6s linear infinite;" >STATUS: READY</div>
-    <div class="rw-text"></div>
+    <div id="result-text-div">
+        <div class="rw-subtext" id="result-note">The following result is encoded in base64 for easier transport as encrypted text output would not preserve specific bytes due to encoding issues.</div>
+        <div class="rw-text" id="result-div">
+            <textarea class="rw-ui rw-text" disabled id="result-textbox"></textarea>
+            <button type="button" id="copy-button" class="rw-ui rw-text">COPY TO CLIPBOARD</button>
+        </div>
+    </div>
+    <div id="result-file-div">
+        <a id="hidden-anchor" href download hidden></a>
+        <button class="rw-ui rw-text" id="download-button">DOWNLOAD</button>
+    </div>
 </div>
 
 {% endblock %}
 {% block postscripts %}
 <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
-<script src="{{ url_for('static', filename='scripts/formtabs.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/sym-forms.js') }}"></script>
 {% endblock %}
