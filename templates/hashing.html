@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block description %}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna vulputate euismod. Maecenas egestas enim sed mauris aliquam ornare. Nullam ac enim suscipit, maximus felis in, volutpat urna. Nulla eget rutrum sem, sed consectetur lectus. Ut commodo ut risus sed pretium. Maecenas pulvinar ultrices risus vel cursus. Praesent lectus orci, congue nec elit ac, porta semper lorem. Aliquam sodales sapien felis, eget imperdiet ante accumsan ac. Nunc varius erat hendrerit fermentum varius. Nulla facilisi. Donec maximus ac risus in vulputate. Sed eu ex vitae mi laoreet fringilla vitae et lacus. In efficitur sagittis purus.
+A hash function is any function that can be used to map data of arbitrary size to fixed-size values, thoough there are some hash function that support variable-length output. The values returned by a hash function are called hash values, hash codes, (hash/message) digests, or simply hashes. The values are usually used to index a fixed-size table called a hash table. Use of a hash function to index a hash table is called hashing or scatter-storage addressing.
 {% endblock %}
 
 {% block content %}
@@ -29,6 +29,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
             </label>
             <label>
                 <div class="tab-btn">
+                    <input type="radio" class="rw-ui" id="sha3-256-button" name="hash" value="sha3-256" autocomplete="off">
+                    <span class="rw-text">SHA3-256</span>
+                </div>
+            </label>
+            <label>
+                <div class="tab-btn">
                     <input type="radio" class="rw-ui" id="md5-button" name="hash" value="md5" autocomplete="off">
                     <span class="rw-text">MD5</span>
                 </div>
@@ -37,12 +43,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
                 <div class="tab-btn">
                     <input type="radio" class="rw-ui" id="blake2-button" name="hash" value="blake2" autocomplete="off">
                     <span class="rw-text">BLAKE2</span>
-                </div>
-            </label>
-            <label>
-                <div class="tab-btn">
-                    <input type="radio" class="rw-ui" id="fsb-button" name="hash" value="fsb" autocomplete="off">
-                    <span class="rw-text">FSB</span>
                 </div>
             </label>
             <label>
@@ -56,27 +56,136 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
             <div class="mini-form" id="sym-form">
                 <div class="col-1" id="sha1-info">
                     <div class="rw-bigtext">Secure Hashing Algorithm-1 (SHA-1)</div>
-                    <div class="rw-text">sha1</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        History: Developed by NSA, published by NIST in 1995. Now deprecated.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: Message M
+Preprocess: pad M, parse into 512-bit blocks
+Initialize H0...H4
+For each block:
+    Expand to 80 words
+    Perform 80 rounds of operations
+    using functions (f) and constants (K)
+Output: 160-bit digest
+                        </pre>
+                        <div class="rw-text">Use Cases</div>
+                        Legacy systems, Git, SSL (now replaced by SHA-2/3).
+                    </div>
                 </div>
                 <div class="col-1" id="sha256-info">
                     <div class="rw-bigtext">Secure Hashing Algorithm-256 (SHA-256)</div>
-                    <div class="rw-text">sha256</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Published in 2001 by NIST to improve on SHA-1.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: Message M
+Pad M to multiple of 512 bits
+Initialize 8 hash values (H0-H7)
+For each block:
+    Prepare message schedule (64 words)
+    For 64 rounds:
+        Apply compression function with bitwise ops and constants
+
+Output: 256-bit digest
+                        </pre>
+                        <div class="rw-text">Use Cases</div>
+                        Digital signatures, TLS, blockchain (e.g., Bitcoin), password hashing.
+                    </div>
+                </div>
+                <div class="col-1" id="sha3-256-info">
+                    <div class="rw-bigtext">Secure Hashing Algorithm3-256 (SHA3-256)</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Published in 2014 by NIST as an alternative, dissimilar cryptographic hash due to successful attacks on MD5, SHA-0, AND SHA-1. Now considered an official hashing standard.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: Message M (any length)
+Parameters:
+    r = 1088 // bitrate (in bits)
+    c = 512 // capacity (in bits)
+    b = 1600 // width of permutation
+    d = 256 // output length in bits
+    Keccak-f[1600] // permutation function
+
+Pad M using the SHA-3-specific multi-rate padding rule
+Initialize array S of 1600 bits
+// Absorbing phase
+Divide M_padded into r-bit blocks: M0, M1, ..., Mn
+For each block Mi:
+    - XOR Mi into the first r bits of the state S
+    - Apply Keccak-f[1600] permutation to the state
+
+// Squeezing phase
+Z = empty string
+While length(Z) &lt; d:
+    - Append the first r bits of 5 to Z
+    - If more output is needed, apply Keccak-f[1600] to S again
+
+Output: First d bits of Z as hash output H
+                        </pre>
+                        <div class="rw-text">Use Cases</div>
+                        Data Integrity and Verification, Password Hashing, Digital Certificates and PKI
+                    </div>
                 </div>
                 <div class="col-1" id="md5-info">
                     <div class="rw-bigtext">Message-Digest 5 (MD5)</div>
-                    <div class="rw-text">yum yum yum part 5</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        History: Created by Ronald Rivest in 1992. Broken (collision vulnerabilities).
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: Message M
+Pad M to 512-bit blocks
+Initialize 4-word state (A, B, C, D)
+For each block:
+    Perform 64 operations using nonlinear functions and constants
+
+Output: 128-bit hash
+                        </pre>
+                        <div class="rw-text">Use Cases</div>
+                        Checksums (non-secure), legacy digital signatures.
+                    </div>
                 </div>
                 <div class="col-1" id="blake2-info">
                     <div class="rw-bigtext">BLAKE2</div>
-                    <div class="rw-text">electric boogaloo</div>
-                </div>
-                <div class="col-1" id="fsb-info">
-                    <div class="rw-bigtext">Fast Syndrome-Based (FSB)</div>
-                    <div class="rw-text">syndrome based?</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        History: Released in 2012 by Jean-Philippe Aumasson et al.; successor to BLAKE.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: Message M, optional key, salt, etc.
+Initialize state vectors from IV and parameters
+Divide input into 128-byte blocks
+Use compression function based on ChaCha
+
+Output: Configurable length hash
+                        </pre>
+                        <div class="rw-text">Use Cases</div>
+                        Modern applications requiring fast, secure hashing (passwords, file integrity).
+                    </div>
                 </div>
                 <div class="col-1" id="gost-info">
                     <div class="rw-bigtext">Gosudarstvennyy Standart (GOST)</div>
-                    <div class="rw-text">spoopy</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Developed by the Soviet Union in 1989; standardized as GOST R 34.11-94.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: Message M
+Break into 256-bit blocks
+For each block:
+    Update checksum
+    Use internal cipher to compress
+Finalize using hash state and checksum
+
+Output: 256-bit hash
+                        </pre>
+                        <div class="rw-text">Use Cases</div>
+                        Russian government use, legacy systems in post-Soviet states.
+                    </div>
                 </div>
                 <div class="col-2 rw-text">
                     <!-- Form contents -->

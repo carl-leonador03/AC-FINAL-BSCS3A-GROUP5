@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block description %}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna vulputate euismod. Maecenas egestas enim sed mauris aliquam ornare. Nullam ac enim suscipit, maximus felis in, volutpat urna. Nulla eget rutrum sem, sed consectetur lectus. Ut commodo ut risus sed pretium. Maecenas pulvinar ultrices risus vel cursus. Praesent lectus orci, congue nec elit ac, porta semper lorem. Aliquam sodales sapien felis, eget imperdiet ante accumsan ac. Nunc varius erat hendrerit fermentum varius. Nulla facilisi. Donec maximus ac risus in vulputate. Sed eu ex vitae mi laoreet fringilla vitae et lacus. In efficitur sagittis purus.
+<div class="rw-bigtext">Symmetric Algorithms</div>
+Symmetric-key algorithms are algorithms for cryptography that use the same cryptographic keys for both the encryption of plaintext and the decryption of ciphertext. The keys, in practice, represent a shared secret between two or more parties that can be used to maintain a private information link.
 {% endblock %}
 
 {% block content %}
@@ -44,19 +45,97 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
             <div class="mini-form" id="sym-form">
                 <div class="col-1" id="des-info">
                     <div class="rw-bigtext">Data Encryption Standard (DES)</div>
-                    <div class="rw-text">des</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Developed by IBM (originally "Lucifer"), adopted by NIST in 1977. It was widely used before being deemed insecure due to short key size (56 bits).
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: 64-bit plaintext, 56-bit key
+Apply Initial Permutation (IP)
+For 16 rounds:
+    Divide data into left and right halves
+    Apply Feistel function on right half
+    XOR with left half
+    Swap halves
+Apply Final Permutation (FP)
+Output: 64-bit ciphertext
+                        </pre>
+                        <div class="rw-text">Process</div>
+                        Feistel network with 16 rounds of processing; uses substitution and permutation.
+                        <div class="rw-text">Use Cases</div>
+                        Legacy systems, banking (before AES adoption).
+                    </div>
                 </div>
                 <div class="col-1" id="aes-info">
                     <div class="rw-bigtext">Advanced Encryption Standard (AES)</div>
-                    <div class="rw-text">aes</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Developed by Vincent Rijmen and Joan Daemen (Rijndael), adopted by NIST in 2001.
+
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: 128-bit plaintext, 128/192/256-bit key
+AddRoundKey
+For Nr-1 rounds:
+    SubBytes
+    ShiftRows
+    MixColumns
+    AddRoundKey
+Final Round:
+    SubBytes
+    ShiftRows
+    AddRoundKey
+Output: 128-bit ciphertext
+                        </pre>
+                        <div class="rw-text">Process</div>
+                        Substitution-permutation network; 10/12/14 rounds depending on key size.
+                        <div class="rw-text">Use Cases</div>
+                        Government encryption (FIPS standard), secure file storage, SSL/TLS.
+                    </div>
                 </div>
                 <div class="col-1" id="bf-info">
                     <div class="rw-bigtext">Blowfish</div>
-                    <div class="rw-text">blowfish? why would you blow a fish?</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Developed by Bruce Schneier in 1993 as a free alternative to DES.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: 64-bit plaintext, variable key (32-448 bits)
+Divide into two 32-bit halves
+For 16 rounds:
+    Left = Left XOR P[i]
+    Right = F(Left) XOR Right
+    Swap
+Undo last swap, then:
+Right = Right XOR P[17]
+Left = Left XOR P[18]
+Output: Ciphertext
+                        </pre>
+                        <div class="rw-text">Process</div>
+                        Feistel network, key-dependent S-boxes.
+                        <div class="rw-text">Use Cases</div>
+                        Password hashing (bcrypt), file encryption.
+                    </div>
                 </div>
                 <div class="col-1" id="idea-info">
                     <div class="rw-bigtext">International Data Encryption Algorithm (IDEA)</div>
-                    <div class="rw-text">guys, i have an idea.</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Developed in 1991 by Xuejia Lai and James Massey as a successor to DES.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+Input: 64-bit block, 128-bit key
+For 8 rounds:
+    Apply a mix of XOR, addition mod 2^16,
+    and multiplication mod 2^16+1
+Final Transformation
+Output: Ciphertext
+                        </pre>
+                        <div class="rw-text">Process</div>
+                        Operates on 16-bit sub-blocks; uses multiple algebraic operations.
+                        <div class="rw-text">Use Cases</div>
+                        Early PGP versions, secure communications.
+                    </div>
                 </div>
                 <div class="col-2 rw-text">
                     <!-- Form contents -->

@@ -72,6 +72,7 @@ div.tab-bar {
     flex-direction: row;
     margin-top: 5px;
     margin-bottom: 5px;
+    gap: 10px;
 }
 
 #cryptic-form div.rw-box {

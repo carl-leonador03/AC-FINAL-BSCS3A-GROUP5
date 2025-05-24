@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block description %}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna vulputate euismod. Maecenas egestas enim sed mauris aliquam ornare. Nullam ac enim suscipit, maximus felis in, volutpat urna. Nulla eget rutrum sem, sed consectetur lectus. Ut commodo ut risus sed pretium. Maecenas pulvinar ultrices risus vel cursus. Praesent lectus orci, congue nec elit ac, porta semper lorem. Aliquam sodales sapien felis, eget imperdiet ante accumsan ac. Nunc varius erat hendrerit fermentum varius. Nulla facilisi. Donec maximus ac risus in vulputate. Sed eu ex vitae mi laoreet fringilla vitae et lacus. In efficitur sagittis purus.
+Public-key cryptography, or asymmetric cryptography, is the field of cryptographicsystems that use pairs of related keys. Each key pair consists of a public key and a corresponding private key. Key pairs are generated with cryptographic algorithms based on mathematical problems termed one-way functions.
+Security of public-key cryptography depends on keeping the private key secret; the public key can be openly distributed without compromising security.
 {% endblock %}
 
 {% block content %}
@@ -53,11 +54,54 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at nunc eget magna 
             <div class="mini-form" id="asym-form">
                 <div class="col-1" id="rsa-info">
                     <div class="rw-bigtext">Rivest-Shamir-Adleman (RSA)</div>
-                    <div class="rw-text">rsa</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Introduced in 1977 by Rivest, Shamir, and Adleman.
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+KeyGen:
+    Choose primes p and q
+    n = p * q
+    φ(n) = (p-1)*(q-1)
+    Choose e such that 1 &lt; e &lt; φ(n) and gcd(e, φ(n)) = 1
+    Compute d ≡ e⁻¹ mod φ(n)
+    Public Key: (e, n), Private Key: (d, n)
+
+Encryption: C = M^e mod n
+Decryption: M = C^d mod n
+                        </pre>
+                        <div class="rw-text">Process</div>
+                        Relies on difficulty of factoring large integers.
+                        <div class="rw-text">Use Cases</div>
+                        Digital signatures, secure key exchange, HTTPS.
+                    </div>
                 </div>
                 <div class="col-1" id="ecc-info">
                     <div class="rw-bigtext">Elliptic Curve Cryptography (ECC)</div>
-                    <div class="rw-text">ecc</div>
+                    <div class="rw-subtext">
+                        <div class="rw-text">History</div>
+                        Proposed independently by Miller and Koblitz in 1985.
+
+                        <div class="rw-text">Pseudocode Overview</div>
+                        <pre>
+KeyGen:
+    Choose elliptic curve E over field F_p
+    Select base point G
+    Choose private key d
+    Compute public key Q = dG
+
+Encryption:
+    Choose random k
+    Ciphertext = (kG, P + kQ)
+
+Decryption:
+    M = P + kQ - d(kG)
+                        </pre>
+                        <div class="rw-text">Process</div>
+                        Based on the algebraic structure of elliptic curves over finite fields.
+                        <div class="rw-text">Use Cases</div>
+                        TLS/SSL, Bitcoin, mobile devices (efficient with small key sizes).
+                    </div>
                 </div>
                 <div class="col-2 rw-text">
                     <!-- Form contents -->
