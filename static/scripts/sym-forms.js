@@ -194,45 +194,62 @@ async function encryptDecryptInput(e) {
 
     if (result != null)
     {
-        if (formInput['input-type'] == "text")
+        if (result['status'] == 'error')
         {
-            var resultText = document.querySelector("textarea#result-textbox");
-
-            if (resultText.textContent != "")
-            {
-                resultText.value = "";
-            } else {
-                resultText.value = result['text'];
-            }
-
             await setTimeout(
                 () => {
-                    document.querySelector("div#status-text").textContent = "RESULTS";
+                    document.querySelector("div#status-text").textContent = "ERROR";
                     document.querySelector("div#status-text").style = null;
                     document.querySelector("div#result-text-div").style.display = "flex";
+                    document.querySelector("textarea#result-textbox").value = result['message'];
                     document.querySelector("div#result-note").style.display = "block";
+                    document.querySelector("div#result-note").textContent = "An error occurred. Please check the following output for an error message, and report any bugs to the GitHub repository (can be found under About this Project tab).";
                     document.querySelector("#machine-animation").style.display = "none";
                 }, 1000
             );
         }
-        else if (formInput['input-type'] == "file")
-        {
-            var resultAnchor = document.querySelector("a#hidden-anchor");
-            var blobbed = b64toBlob(result['file'], formInput['file-type'])
+        else
+        {    
+            if (formInput['input-type'] == "text")
+            {
+                var resultText = document.querySelector("textarea#result-textbox");
 
-            resultAnchor.href = URL.createObjectURL(blobbed);
+                if (resultText.textContent != "")
+                {
+                    resultText.value = "";
+                } else {
+                    resultText.value = result['text'];
+                }
 
-            resultAnchor.download = formInput['tab-menu'] + (mode == 'encrypt') ? "_encrypted_" : "_decrypted_" + formInput['file-name'];
+                await setTimeout(
+                    () => {
+                        document.querySelector("div#status-text").textContent = "RESULTS";
+                        document.querySelector("div#status-text").style = null;
+                        document.querySelector("div#result-text-div").style.display = "flex";
+                        document.querySelector("div#result-note").style.display = "block";
+                        document.querySelector("#machine-animation").style.display = "none";
+                    }, 1000
+                );
+            }
+            else if (formInput['input-type'] == "file")
+            {
+                var resultAnchor = document.querySelector("a#hidden-anchor");
+                var blobbed = b64toBlob(result['file'], formInput['file-type'])
 
-            await setTimeout(
-                () => {
-                    document.querySelector("div#status-text").textContent = "RESULTS";
-                    document.querySelector("div#status-text").style = null;
-                    document.querySelector("div#result-file-div").style.display = "flex";
-                    document.querySelector("button#download-button").textContent = "DOWNLOAD (" + humanFileSize(blobbed.size) + ") [" + ((mode == 'encrypt') ? "ENCRYPTED" : "DECRYPTED") + "]";
-                    document.querySelector("#machine-animation").style.display = "none";
-                }, 1000
-            );
+                resultAnchor.href = URL.createObjectURL(blobbed);
+
+                resultAnchor.download = formInput['tab-menu'] + (mode == 'encrypt') ? "_encrypted_" : "_decrypted_" + formInput['file-name'];
+
+                await setTimeout(
+                    () => {
+                        document.querySelector("div#status-text").textContent = "RESULTS";
+                        document.querySelector("div#status-text").style = null;
+                        document.querySelector("div#result-file-div").style.display = "flex";
+                        document.querySelector("button#download-button").textContent = "DOWNLOAD (" + humanFileSize(blobbed.size) + ") [" + ((mode == 'encrypt') ? "ENCRYPTED" : "DECRYPTED") + "]";
+                        document.querySelector("#machine-animation").style.display = "none";
+                    }, 1000
+                );
+            }
         }
     }
 }

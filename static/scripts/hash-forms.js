@@ -8,7 +8,7 @@ document.querySelector('input[type="radio"].rw-ui#sha1-button').addEventListener
 document.querySelector('input[type="radio"].rw-ui#sha256-button').addEventListener("click", () => switchTab("sha256"));
 document.querySelector('input[type="radio"].rw-ui#md5-button').addEventListener("click", () => switchTab("md5"));
 document.querySelector('input[type="radio"].rw-ui#blake2-button').addEventListener("click", () => switchTab("blake2"));
-document.querySelector('input[type="radio"].rw-ui#fsb-button').addEventListener("click", () => switchTab("fsb"));
+document.querySelector('input[type="radio"].rw-ui#sha3-256-button').addEventListener("click", () => switchTab("sha3-256"));
 document.querySelector('input[type="radio"].rw-ui#gost-button').addEventListener("click", () => switchTab("gost"));
 
 document.querySelector('form#cryptic-form').addEventListener("submit", (e) => hashInput(e));
@@ -26,7 +26,7 @@ const tabDict = {
     "sha256": "sha256-info",
     "md5": "md5-info",
     "blake2": "blake2-info",
-    "fsb": "fsb-info",
+    "sha3-256": "sha3-256-info",
     "gost": "gost-info"
 }
 
