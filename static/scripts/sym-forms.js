@@ -15,6 +15,7 @@ document.querySelector('input[type="radio"].rw-ui#idea-button').addEventListener
 document.querySelector('form#cryptic-form').addEventListener("submit", (e) => encryptDecryptInput(e));
 
 document.querySelector('button#copy-button').addEventListener("click", (e) => copyText(e));
+document.querySelector('button#download-button').addEventListener("click", (e) => document.querySelector("a#hidden-anchor").click());
 
 document.querySelector("div#result-note").style.display = "none";
 document.querySelector("div#result-text-div").style.display = "none";
@@ -238,7 +239,7 @@ async function encryptDecryptInput(e) {
 
                 resultAnchor.href = URL.createObjectURL(blobbed);
 
-                resultAnchor.download = formInput['tab-menu'] + (mode == 'encrypt') ? "_encrypted_" : "_decrypted_" + formInput['file-name'];
+                resultAnchor.download = formInput['tab-menu'] + ((mode == 'encrypt') ? "_encrypted_" : "_decrypted_") + formInput['file-name'];
 
                 await setTimeout(
                     () => {
