@@ -15,47 +15,51 @@ def index():
 def sym():
     if request.method == "POST":
         # request.form was empty for some reason
-        form = request.get_json(force = True)
-        mode = form['process-type']
-        sym_functions = {
-            "des": {"encrypt": lambda k, d: des(k, d), "decrypt": lambda k, d: des(k, d, 1)},
-            "aes": {"encrypt": lambda k, d: aes(k, d), "decrypt": lambda k, d: aes(k, d, 1)},
-            "blowfish": {"encrypt": lambda k, d: blowfish(k, d), "decrypt": lambda k, d: blowfish(k, d, 1)},
-            "idea": {"encrypt": lambda k, d: idea(k, d), "decrypt": lambda k, d: idea(k, d, 1)}
-        }
+        try:
+            form = request.get_json(force = True)
+            mode = form['process-type']
+            sym_functions = {
+                "des": {"encrypt": lambda k, d: des(k, d), "decrypt": lambda k, d: des(k, d, 1)},
+                "aes": {"encrypt": lambda k, d: aes(k, d), "decrypt": lambda k, d: aes(k, d, 1)},
+                "blowfish": {"encrypt": lambda k, d: blowfish(k, d), "decrypt": lambda k, d: blowfish(k, d, 1)},
+                "idea": {"encrypt": lambda k, d: idea(k, d), "decrypt": lambda k, d: idea(k, d, 1)}
+            }
 
-        if form['tab-menu'] in list(sym_functions.keys()):
-            if form['input-type'] == 'file':
-                # Process file (decode base64-encoded file)
-                file = b64decode(form['file-input'])
+            if form['tab-menu'] in list(sym_functions.keys()):
+                if form['input-type'] == 'file':
+                    # Process file (decode base64-encoded file)
+                    file = b64decode(form['file-input'])
 
-                if mode in ['encrypt', 'decrypt']:
-                    processed = sym_functions[form['tab-menu']][mode](form['key-input'].encode(), file)
-                    return jsonify({"status": f"{mode}ed-file", "file": b64encode(processed).decode('ascii')})
+                    if mode in ['encrypt', 'decrypt']:
+                        processed = sym_functions[form['tab-menu']][mode](form['key-input'].encode(), file)
+                        return jsonify({"status": f"{mode}ed-file", "file": b64encode(processed).decode('ascii')})
+
+                    else:
+                        return jsonify({"status": "invalid-mode"})
 
                 else:
-                    return jsonify({"status": "invalid-mode"})
+                    # Process text
+                    if mode in ['encrypt', 'decrypt']:
+                        processed = sym_functions[form['tab-menu']][mode](
+                            form['key-input'].encode(), 
+                            form['text-input-textbox'].encode() if mode == 'encrypt' else b64decode(form['text-input-textbox'].encode())
+                        )
 
+                        return jsonify(
+                            {
+                                "status": f"{mode}ed-text",
+                                "text": b64encode(processed).decode('ascii') if mode == 'encrypt' else processed.decode('ascii')
+                            }
+                        )
+
+                    else:
+                        return jsonify({"status": "invalid-mode"})
+            
             else:
-                # Process text
-                if mode in ['encrypt', 'decrypt']:
-                    processed = sym_functions[form['tab-menu']][mode](
-                        form['key-input'].encode(), 
-                        form['text-input-textbox'].encode() if mode == 'encrypt' else b64decode(form['text-input-textbox'].encode())
-                    )
-
-                    return jsonify(
-                        {
-                            "status": f"{mode}ed-text",
-                            "text": b64encode(processed).decode('ascii') if mode == 'encrypt' else processed.decode('ascii')
-                        }
-                    )
-
-                else:
-                    return jsonify({"status": "invalid-mode"})
+                return jsonify({"status": "invalid-algorithm"})
         
-        else:
-            return jsonify({"status": "invalid-algorithm"})
+        except Exception as err:
+            return jsonify({"status": "error", "message": str(err)})
         
     return render_template("symmetric.html")
 
@@ -199,33 +203,37 @@ def asym():
 def hash():
     if request.method == 'POST':
         # request.form was empty for some reason
-        form = request.get_json(force = True)
-        hash = form['hash']
+        try:
+            form = request.get_json(force = True)
+            hash = form['hash']
 
-        hash_funcs = {
-            "sha1": lambda x: sha1(x),
-            "sha256": lambda x: sha256(x),
-            "md5": lambda x: md5(x),
-            "blake2": lambda x: blake2(x),
-            "sha3-256": lambda x: sha3_256(x),
-            "gost": lambda x: gost(x)
-        }
-        
-        if form['hash'] in list(hash_funcs.keys()):
-            if form['input-type'] == 'file':
-                file = b64decode(form['file-input'])
-                hashed = hash_funcs[hash](file)
-                
-                return jsonify({"status": "hashed-file", "file": hashed})
+            hash_funcs = {
+                "sha1": lambda x: sha1(x),
+                "sha256": lambda x: sha256(x),
+                "md5": lambda x: md5(x),
+                "blake2": lambda x: blake2(x),
+                "sha3-256": lambda x: sha3_256(x),
+                "gost": lambda x: gost(x)
+            }
             
+            if form['hash'] in list(hash_funcs.keys()):
+                if form['input-type'] == 'file':
+                    file = b64decode(form['file-input'])
+                    hashed = hash_funcs[hash](file)
+                    
+                    return jsonify({"status": "hashed-file", "file": hashed})
+                
+                else:
+                    # Process text
+                    hashed = hash_funcs[hash](form['text-input-textbox'])
+                    
+                    return jsonify({"status": "hashed-text", "text": hashed})
+                
             else:
-                # Process text
-                hashed = hash_funcs[hash](form['text-input-textbox'])
-                
-                return jsonify({"status": "hashed-text", "text": hashed})
-            
-        else:
-            return jsonify({"status": "unknown-hash"})
+                return jsonify({"status": "unknown-hash"})
+        
+        except Exception as err:
+            return jsonify({"status": "error", "message": str(err)})
 
     return render_template("hashing.html")
 
