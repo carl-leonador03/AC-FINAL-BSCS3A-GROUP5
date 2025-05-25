@@ -84,6 +84,12 @@
         </label>
         <label>
             <div class="tab-btn">
+                <input type="radio" class="rw-ui" id="sha3-256-button" name="algo" value="sha3-256" autocomplete="off">
+                <span class="rw-text">SHA3-256</span>
+            </div>
+        </label>
+        <label>
+            <div class="tab-btn">
                 <input type="radio" class="rw-ui" id="md5-button" name="algo" value="md5" autocomplete="off">
                 <span class="rw-text">MD5</span>
             </div>
@@ -96,65 +102,831 @@
         </label>
         <label>
             <div class="tab-btn">
-                <input type="radio" class="rw-ui" id="fsb-button" name="algo" value="fsb" autocomplete="off">
-                <span class="rw-text">FSB</span>
-            </div>
-        </label>
-        <label>
-            <div class="tab-btn">
                 <input type="radio" class="rw-ui" id="gost-button" name="algo" value="gost" autocomplete="off">
                 <span class="rw-text">GOST</span>
             </div>
         </label>
     </div>
     <div class="rw-box">
-        <div id="des-info">
+        <div class="left-al" id="des-info">
             <div class="rw-bigtext">Data Encryption Standard (DES)</div>
-            <div class="rw-text">des</div>
+            <hr>
+            <div class="rw-text">
+                The Data Encryption Standard (DES) is a symmetric-key block cipher that was widely used for data encryption. It encrypts data in 64-bit blocks using a 56-bit key (plus 8 parity bits, totaling 64 bits).
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <ul>
+                        <li><b>1973-1974:</b> NBS (now NIST) issued a public request for a standard encryption algorithm.</li>
+                        <li><b>1974:</b> IBM submiited an algorithm called Lucifer, which was modified with help from the NSA and became DES.</li>
+                        <li><b>1977:</b> DES was adopted as a Federal information Processing Standard (FIPS PUB 46).</li>
+                        <li><b>1999:</b> DES was officially withdrawn for most uses, except in legacy systems.</li>
+                        <li><b>2001:</b> Replaced by the Advanced Encryption Standard (AES) (FIPS PUB 197).</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+Input: 64-bit plaintext, 56-bit key
+Apply Initial Permutation (IP)
+For 16 rounds:
+    Divide data into left and right halves
+    Apply Feistel function on right half
+    XOR with left half
+    Swap halves
+Apply Final Permutation (FP)
+Output: 64-bit ciphertext
+                </pre>
+                <div class="rw-bigtext">Security & Vulnerabilities</div>
+                DES was considered strong in the 1970s but became increasily weak due to advances in computing power.
+                <ul>
+                    <li><b>Short key length (56 bits):</b>Vulnerable to brute-force attacks.</li>
+                    <li><b>Known attacks:</b></li>
+                    <ul>
+                        <li>Brute-force: Demonstrated in 1998 by the EFF's DES Cracker (cost ~$250,000).</li>
+                        <li>Differential and linear cryptanalysis: Theoretical attacks that exploit patterns in ciphertext.</li>
+                    </ul>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>Financial systems</li>
+                    <li>Smart cards and older payment systems</li>
+                    <li>Secure email, file encryption</li>
+                    <li>Telecommunications</li>
+                </ul>
+            </div>
         </div>
-        <div id="aes-info">
+        <div class="left-al" id="aes-info">
             <div class="rw-bigtext">Advanced Encryption Standard (AES)</div>
-            <div class="rw-text">aes</div>
+            <hr>
+            <div class="rw-text">
+                The Advanced Encryption Standard (AES) is a symmetric-key block cipher chosen by the U.S. National Institute of Standards and Technology (NIST) in 2001 as the official replacement for the outdated DES. AES operates on 128-bit blocks and supports 128-, 192-, or 256-bit keys. It uses a Substitution-Permutation Network (SPN) structure rather than a Feistel network.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Background:</b>
+                    <ul>
+                        <li>DES was increasily considered insecure by the late 1990s.</li>
+                        <li>NIST launched the AES competition in 1997 to find a replacement.</li>
+                        <li>After an open evaluation of 15 submissions, Rijndael, designed by Vincent Rijmen and Joan Daemen, was selected in 2000.</li>
+                    </ul>
+                    <b>Standardization:</b>
+                    <ul>
+                        <li><b>2001:</b> Adopted as FIPS SUB 197 by NIST.</li>
+                        <li><b>2002+:</b> Adopted globally by governments, financial institutions, and industries.</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                This is a simplified pseudocode outline for AES-128:
+                <pre>
+function AES_Encrypt(plaintext, key):
+    state = plaintext
+    roundKeys = KeyExpansion(key)
+    state = AddRoundKey(state, roundKeys[0])
+
+    for round from 1 to 9:
+        state = SubStates(state)
+        state = ShiftRows(state)
+        state = MixColumns(state)
+        state = AddRoundKey(state, roundKeys[round])
+    
+    // Final round (no MixColumns)
+    state = SubBytes(state)
+    state = ShiftRows(state)
+    state = AddRoundKey(state, roundKeys[10])
+
+    return state
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                AES is widely trusted and heavily analyzed:
+                <ul>
+                    <li>No effective practical attacks against full AES.</li>
+                    <li>AES-128 is ecure against brute force (2<sup>128</sup> possibilities).</li>
+                    <li>AES-256 is used where high assurance or long-term security is needed.</li>
+                    <li>Known cryptanalytic attacks (e.g., side-channel, biclique) are not practical in real-world settings.</li>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>Government & Military</li>
+                    <li>Financial Sector</li>
+                    <li>Consumer Applications</li>
+                    <li>Networking</li>
+                </ul>
+            </div>
         </div>
-        <div id="bf-info">
+        <div class="left-al" id="bf-info">
             <div class="rw-bigtext">Blowfish</div>
-            <div class="rw-text">blowfish</div>
+            <hr>
+            <div class="rw-text">
+                Blowfish is a symmetric-key block cipher designed for fast and secure encryption. It uses a 64-bit block size and variable-length keys from 32 to 448 bits. Blowfish is a Feistel cipher with 16 rounds, and it was optimized for performance in software, especially on 32-bit microprocessors.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li><b>1993:</b> Designed by Bruce Schneier as a free alternative to DES and other proprietary algorithms.</li>
+                        <li>Published in the paper: <i>"Description of a New Variable-Length Key, 64-Bit Block Cipher (Blowfish)"</i>.</li>
+                    </ul>
+                    <b>Motivation:</b>
+                    <ul>
+                        <li>Schneier created Blowfish in response to the growing demand for a free and unpatented encryption algorithm.</li>
+                        <li>It was designed to be public domain and is not encumbered by patents.</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+function BlowfishEncrypt(L, R, P, S):
+    for i from 0 to 15:
+        L = L XOR R[i]
+        R = R XOR F(L, S)
+        swap L and R
+    
+    // Undo final swap
+    swap L and R
+    R = R XOR P[16]
+    L = L XOR P[17]
+
+    return L, R
+
+function F(x, S):
+    a = (x >> 24) & 0xFF
+    b = (x >> 16) & 0xFF
+    c = (x >> 8) & 0xFF
+    d = x & 0xFF
+    return ((S[0][a] + S[1][b]) XOR S[2][c]) + S[3][d]
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                <ul>
+                    <li><b>Key length flexibility</b> makes brute-force attacks more difficult with longer keys.</li>
+                    <li><b>Public scrutiny:</b> Blowfish has been extensively analyzed and is generally considered secure, except for:</li>
+                    <ul>
+                        <li>Small block size (64-bit) is a weakness for large-volume data encryption.</li>
+                        <li>Key schedule is slow and complex &mdash; makes it less ideal for scenarios requiring frequent key changes.</li>
+                    </ul>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>Historical applications, such as password hashing, file and disk encryption tools, and secure email clients and software applications.</li>
+                    <li>Embedded Systems</li>
+                </ul>
+            </div>
         </div>
-        <div id="idea-info">
+        <div class="left-al" id="idea-info">
             <div class="rw-bigtext">Internation Data Encryption Algorithm (IDEA)</div>
-            <div class="rw-text">idea</div>
+            <hr>
+            <div class="rw-text">
+                The Internation Data Encryption Algorithm (IDEA) is a symmetric-key block cipher that operates on 64-bit blocks and uses a 128-bit key. Unlike DES and Blowfish, which rely heavily on XOR and S-boxes, IDEA uses modular arithmetic, bitwise XOR, and multiplication, giving it a unique algebraic structure.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li><b>1991:</b> Developed by Xuejia Lai and James Massey of ETH Zurich.</li>
+                        <li>Originally named IPES (Improved Proposed Encryption Standard).</li>
+                        <li>Later renamed to IDEA and published for public use.</li>
+                    </ul>
+                    <b>Adoption:</b>
+                    <ul>
+                        <li>Gained attention as a secure alternative to DES.</li>
+                        <li>Became widely known after being adopted in PGP (Pretty Good Privacy) encryption software.</li>
+                    </ul>
+                    <b>Patent Status:</b>
+                    <ul>
+                        <li>Patented in multiple countries but freely available for non-commercial use.</li>
+                        <li>Patents expired in 2011, making IDEA fully free to use.</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                This is a simplified pseudocode for one round of IDEA:
+                <pre>
+function IDEA_Encrypt(X1, X2, X3, X4, subkeys):
+    for round in 1 to 8:
+        Z = subkeys[round] // 6 subkeys per round
+        A = (X1 * Z[0]) mod 65537
+        B = (X2 + Z[1]) mod 65536
+        C = (X3 + Z[2]) mod 65536
+        D = (X4 * Z[3]) mod 65537
+        E = A XOR C
+        F = B XOR D
+
+        G = (E * Z[4]) mod 65537
+        H = (F + G) mod 65536
+        I = (h * z[5]) mod 65537
+        J = (G + I) mod 65536
+
+        X1 = A XOR I
+        X4 = D XOR I
+        X2 = C XOR J
+        X3 = B XOR J
+
+    // Output transformation
+    X1 = (X1 * subkeys[48]) mod 65537
+    X2 = (X3 + subkeys[49]) mod 65536
+    X3 = (X2 + subkeys[50]) mod 65536
+    X4 = (X4 * subkeys[51]) mod 65537
+
+    return concatenate(X1, X2, X3, X4)
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                IDEA is considered very secure and resistent to:
+                <ul>
+                    <li>Differential cryptanalysis</li>
+                    <li>Linear cryptanalysis</li>
+                    <li>Related-key attacks (within reason)</li>
+                </ul>
+                No practical attack has successfully broken full IDEA, though reduced-round versions have been cryptanalyzed.<br/>
+                However: 
+                <ul>
+                    <li>Its 64-bit block size is a limitation in modern high-volume data systems (suspectible to birthday attacks).</li>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>PGP (Pretty Good Privacy)</li>
+                    <li>Secure email and messaging</li>
+                    <li>Embedded Systems</li>
+                </ul>
+            </div>
         </div>
-        <div id="rsa-info">
+        <div class="left-al" id="rsa-info">
             <div class="rw-bigtext">Rivest-Shamir-Adleman (RSA)</div>
-            <div class="rw-text">rsa</div>
+            <hr>
+            <div class="rw-text">
+                RSA is a public-key (asymmetric) cryptosystem used for secure data transmission, digital signatures, and key exchange. It relies on the mathematical difficulty of factoring large integers. RSA uses two keys: a public key for encryption orsignature verification, and a private key for decryption or signing.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Invented in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman at MIT.</li>
+                        <li>Published in <i>Communications of the ACM</i> in 1978.</li>
+                        <li>Named after its inventors: R, S, and A.</li>
+                    </ul>
+                    <b>Patent Status:</b>
+                    <ul>
+                        <li>RSA was patented in the U.S. (expired in 2000).</li>
+                        <li>RSA Security Inc. commericalized it.</li>
+                    </ul>
+                    <b>Earlier Work:</b>
+                    <ul>
+                        <li>Similar ideas were developed earlier by Clifford Cocks at GCHQ (UK), but kept classified.</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+function RSA_KeyGen():
+    p = generate_large_prime()
+    q = generate_large_prime()
+    n = p * q
+    &theta; = (p - 1) * (q - 1)
+    e = 65537 // Common choice
+    d = modular_inverse(e, &theta;)
+    return public_key = (e, n), private_key = (d, n)
+
+function RSA_Encrypt(plaintext, public_key):
+    e, n = public_key
+    ciphertext = pow(plaintext, e) mod n
+    return ciphertext
+
+function RSA_Decrypt(ciphertext, private_key):
+    d, n = private_key
+    plaintext = pow(ciphertext, d) mod n
+    return plaintext
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                RSA is secure if:
+                <ul>
+                    <li>Proper key lengths (&ge;2048 bits) are used.</li>
+                    <li>Primes are large, random, and securely generated.</li>
+                    <li>Padding schemes like OAEP or PKCS#1 v1.5 are used.</li>
+                </ul>
+                <b>Known attacks:</b>
+                <ul>
+                    <li><b>Mathematical attacks:</b> Based on factoring n.</li>
+                    <li><b>Timing and side-channel attacks:</b> On implementations.</li>
+                    <li><b>Padding oracle attacks:</b> If poor padding schemes are used.</li>
+                </ul>
+                RSA-2048 is currently secure but not quantum-safe.
+            </div>
         </div>
-        <div id="ecc-info">
+        <div class="left-al" id="ecc-info">
             <div class="rw-bigtext">Elliptic Curve Cryptography (ECC)</div>
-            <div class="rw-text">ecc</div>
+            <hr>
+            <div class="rw-text">
+                Elliptic Curve Cryptography (ECC) is an asymmetric cryptographic technique based on the algebraic structure of elliptic curves over finite fields. ECC provides equivalent security to RSA but with much short key sizes, making it ideal for lightweight, high-speed, and secure applications.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Proposed independently by Victor Miller and Neal Koblitz in 1985.</li>
+                        <li>Developed as an alternative to traditional public-key systems (like RSA).</li>
+                    </ul>
+                    <b>Standardization:</b>
+                    <ul>
+                        <li>Adopted in many cryptographic standards: FIPS 186-4, NIST curves, ANSI X9.62, SEC 2, and more.</li>
+                        <li>Prominent curves include secp256r1 (NIST P-256), Curve25519, and Ed25519.</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                This is a simplified ECC key generation and ECDH key agreement pseduocode:
+                <pre>
+// Key Generation
+function ECC_KeyGen(curve, base_point G):
+    d = random_integer(1, n-1) // private key
+    Q = scalar_mult(d, G)   // public key
+    return (d, Q)
+
+// Key Exchange (ECDH)
+function ECDH_Agree(private_key d_A, public_key Q_B):
+    shared_point = scalar_mult(d_A, Q_B)
+    shared_point = hash(shared_point.x) // use x-coordinate
+    return shared_secret
+
+// Scalar multiplication: repeated doubling and addition
+function scalar_mult(k, P):
+    R = INFINITY
+    while k &gt; 0:
+        if k is odd:
+            R = point_add(R, P)
+        P = point_double(P)
+        k = k // 2
+    return R
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                AES is widely trusted and heavily analyzed:
+                <ul>
+                    <li>No effective practical attacks against full AES.</li>
+                    <li>AES-128 is ecure against brute force (2<sup>128</sup> possibilities).</li>
+                    <li>AES-256 is used where high assurance or long-term security is needed.</li>
+                    <li>Known cryptanalytic attacks (e.g., side-channel, biclique) are not practical in real-world settings.</li>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>Digital Signatures: ECDSA, EdDSA</li>
+                    <li>Key Exchange: ECDH</li>
+                    <li>Public Key Encryption: ECIES</li>
+                    <li>Modern Protocols, such as TLS, SSH, Signal protocol, and blockchain systems</li>
+                </ul>
+            </div>
         </div>
-        <div id="sha1-info">
+        <div class="left-al" id="sha1-info">
             <div class="rw-bigtext">Secure Hashing Algorithm-1 (SHA-1)</div>
-            <div class="rw-text">sha-1</div>
+            <div class="rw-text">
+                SHA-1 is a cryptographic hash function that produces a 160-bit (20-byte) hash value (digest) from an input of arbitrary length. It was orginally designed for use in digital signatures and message integrity verification.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Designed by the NSA and published by NIST in 1995 as a U.S. Federal Standard (FIPS PUB 180-1).</li>
+                        <li>SHA-1 was intended to fix weaknesses found in SHA-0, its predecessor.</li>
+                    </ul>
+                    <b>Widespread Adoption:</b>
+                    <ul>
+                        <li>SHA-1 became the dominant hash function for digital signatures (DSA), SSL/TLS certificates, and software verification.</li>
+                    </ul>
+                    SHA-1 was phased out by 2017.
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+function SHA1(message):
+    // Preprocessing
+    message = pad(message)  // pad message to multiple of 512 bits
+    blocks = split_into_blocks(message) // each block is 512 bits
+
+    // Initialize hash values
+    H0 = 0x67452301
+    H1 = 0xEFCDAB89
+    H2 = 0x98BADCFE
+    H3 = 0x10325476
+    H4 = 0xC3D2E1F0
+
+    for block in blocks:
+        W = array[80]
+        for i from 0 to 15:
+            W[i] = block[i]
+        for i from 16 to 79:
+            W[i] = left_rotate(W[i-3] XOR W[i-8] XOR W[i-14] XOR W[i-16], 1)
+        
+        A, B, C, D, E = H0, H1, H2, H3, H4
+
+        for i from 0 to 79:
+            if 0 &le; i &lt; 20:
+                f = (B AND C) OR ((NOT B) AND D)
+                k = 0x5A827999
+            else if 20 &le; i &lt; 40:
+                f = B XOR C XOR D
+                k = 0x6ED9EBA1
+            else if 40 &le; i &lt; 60:
+                f = (B AND C) OR (B AND D) OR (C AND D)
+                k = 0x8F1BBCDC
+            else:
+                f = B XOR C XOR D
+                k = 0xCA62C1D6
+            
+            temp = (left_rotate(A, 5) + f + E + k + W[i]) mod 2^32
+
+            E = D
+            D = C
+            C = left_rotate(B, 30)
+            B = A
+            A = temp
+        
+        H0 = (H0 + A) mod 2^32
+        H1 = (H1 + B) mod 2^32
+        H2 = (H2 + C) mod 2^32
+        H3 = (H3 + D) mod 2^32
+        H4 = (H4 + E) mod 2^32
+    
+    return concatenate(H0, H1, H2, H3, H4) as 160-bit hash
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                SHA-1 is broken in terms of collision resistance:
+                <b>Attacks:</b>
+                <ul>
+                    <li><b>2005:</b> Theoretical collisions by Wang et al.</li>
+                    <li><b>2017:</b> First practical collision demonstrated by Google and CWI Amsterdam ("SHAttered" attack)</li>
+                    <li><b>2019+:</b> Chosen-prefix collisions</li>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <b>Historical Use</b>
+                <ul>
+                    <li>Digital Signatures</li>
+                    <li>Checksum and file integrity verification</li>
+                    <li>Git version control system</li>
+                </ul>
+                <b>Deprecated Use</b>
+                <ul>
+                    <li>SLL/TLS certificates</li>
+                    <li>Code-signing and authentication</li>
+                </ul>
+            </div>
         </div>
-        <div id="sha256-info">
+        <div class="left-al" id="sha256-info">
             <div class="rw-bigtext">Secure Hashing Algorithm-256 (SHA-256)</div>
-            <div class="rw-text">sha-256</div>
+            <div class="rw-text">
+                SHA-256 is a cryptographic hash function that produces a 256-bit (32-byte) fixed-size output from an input of arbitrary size. It is one of the six hash functions in the SHA-2 family, designed for data integrity and digital signatures.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Developed by the NSA and published by NIST in 2001 as FIPS PUB 180-2.</li>
+                        <li>Successor to SHA-1, designed to address its vulnerabilities.</li>
+                        <li>Part of the broader SHA-2 standard, which also includes SHA-224, SHA-384, SHA-512, etc.</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+function SHA256(message):
+    message = pad(mesage)       // pad message to multiple of 512 bits
+    blocks = split_into_blocks(message)
+
+    // Initial hash values (first 32 bits of fractional parts of square roots of primes 2..19)
+    H = [0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19]
+
+    for each block in blocks:
+        W = array[64]
+        for i from 0 to 15:
+            W[i] = block[i]
+        for i from 16 to 63:
+            s0 = (ROTR(W[i-15], 7)) XOR (ROTR(W[i-15], 18)) XOR (W[i-15] >> 3)
+            s1 = (ROTR(W[i-2], 17)) XOR (ROTR(W[i-2], 19)) XOR (W[i-2] >> 10)
+            W[i] = W[i-16] + s0 + W[i-7] + s1
+
+        a, b, c, d, e, f, g, h = H[0..7]
+
+        for i from 0 to 63:
+            S1 = ROTR(e, 6) XOR ROTR(e, 11) XOR ROTR(e, 25)
+            ch = (e AND f) XOR ((NOT e) AND g)
+            temp1 = h + S1 + ch + K[i] + W[i]
+            S0 = ROTR(a, 2) XOR ROTR(a, 13) XOR ROTR(a, 22)
+            maj = (a AND b) XOR (a AND c) XOR (b AND c)
+            temp2 = S0 + maj
+
+            h = g
+            g = f
+            f = e
+            e = d + temp1
+            d = c
+            c = b
+            b = a
+            a = temp1 + temp2
+        
+        H[0] = H[0] + a
+        H[1] = H[1] + b
+        H[2] = H[2] + c
+        H[3] = H[3] + d
+        H[4] = H[4] + e
+        H[5] = H[5] + f
+        H[6] = H[6] + g
+        H[7] = H[7] + h
+    
+    return concatenate H[0..7] as 256-bit hash
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                SHA-256 is currently secure against all known practical attacks:
+                <ul>
+                    <li><b>Collision Resistance:</b> No known collisions</li>
+                    <li><b>Preimage Resistance:</b> No known preimage or second-preimage attacks better than brute force</li>
+                    <li><b>Resistance to Length Extension Attacks:</b> Applications must use HMAC or other domain separation techniques</li>
+                </ul>
+                <b>Compared to SHA-1:</b>
+                <ul>
+                    <li>SHA-256 is exponentially harder to break (2<sup>128</sup> operations vs 2<sup>60</sup> for SHA-1)</li>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>Digital Signatures</li>
+                    <li>File and Message Integrity</li>
+                    <li>TLS / SSL & HTTPS</li>
+                    <li>Blockchain & Cryptocurrency</li>
+                </ul>
+            </div>
         </div>
-        <div id="md5-info">
+        <div class="left-al" id="sha3-256-info">
+            <div class="rw-bigtext">Secure Hashing Algorithm3-256 (SHA3-256)</div>
+            <div class="rw-text">
+                SHA3-256 is a cryptographic hash function producing a 256-bit (32-byte) output. It is part of the SHA-3 family, designed as a drop-in replacement for SHA-2, but using a completely differential internal structure: the Keccak sponge construction.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Designed by Guido Bertoni, Joan Daemen, Michaël Peeters, and Gilles Van Assche</li>
+                        <li>Selected as the winner of the NIST SHA-3 competition in 2012</li>
+                        <li>Standardized in FIPS PUB 202 (August 2015)</li>
+                    </ul>
+                    <b>SHA3 &ne; "SHA-2 improvement":</b>
+                    <ul>
+                        <li>Not a direct upgrade to SHA-2 (like SHA-256)</li>
+                        <li>Based on Keccak, offering a new sponge-based construction instead of Merkle-Damgård</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                This is a simplified pseudocode for SHA3-256 using the Keccak sponge construction:
+                <pre>
+function SHA3_256(message):
+    // Initialize state
+    state = 1600-bit array of 0s
+
+    // Pad message using SHA-3 padding (multi-rate padding rule)
+    padded = pad10*1(message, r=1088)
+
+    // Absorb input
+    for each r-bit block M in padded:
+        state[0:r] = state[0:r] XOR M
+        state = KeccakF1600(state)      // 24-round permutation
+    
+    // Squeeze output
+    Z = empty string
+
+    while length(Z) < 256:
+        Z = Z || state[0:r]
+        if more output needed:
+            state = KeccakF1600(state)
+    
+    return first 256 bits of Z
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                SHA3-256 is highly secure:
+                <ul>
+                    <li><b>Collision resistance:</b> 128-bit</li>
+                    <li><b>Preimage resistance:</b> 256-bit</li>
+                    <li><b>Resistance to length-extension attacks</b> (unlike SHA-2)</li>
+                </ul>
+                <b>Known cryptanalysis:</b>
+                <ul>
+                    <li>No practical attacks exist</li>
+                    <li>Due to wide security margin, SHA-3 is ready for future use, including post-quantum designs</li>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>Hashing & Integrity Checking</li>
+                    <li>cryptographic Protocols</li>
+                    <li>Customizable Functions</li>
+                </ul>
+            </div>
+        </div>
+        <div class="left-al" id="md5-info">
             <div class="rw-bigtext">Message-Digest 5 (MD5)</div>
-            <div class="rw-text">md5</div>
+            <div class="rw-text">
+                MD5 is a cryptographic hash function that produces a 128-bit (16-byte) hash from an input message of arbitrary length. It was designed as a fast, compact algortihm to ensure data integrity, but is now considered cryptographically broken.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Designed by Ronald Rivest (R in RSA)</li>
+                        <li>Published in 1992 as an improvement over MD4</li>
+                        <li>Documented in RFC 1321</li>
+                    </ul>
+                    <b>Evolution:</b>
+                    <ul>
+                        <li>Predecessor: MD4 (faster, less secure)</li>
+                        <li>Successor: SHA-0, SHA-1, SHA-2 (after MD5 vulnerabilities surfaced)</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+function MD5(message):
+    // Padding
+    message = pad(message)      // pad to multiple of 512 bits
+
+    // Initialize hash values
+    A = 0x67452301
+    B = 0xEFCDAB89
+    C = 0x98BADCFE
+    D = 0x10325476
+
+    // Process each 512-bit block
+    for each block in message:
+        M = divide block into 16 words (32 bits each)
+        a = A
+        b = B
+        c = C
+        d = D
+
+        for i from 0 to 63:
+            if 0 ≤ i &lt; 16:
+                F = (b AND c) OR ((NOT b) AND d)
+                g = i
+            else if 16 ≤ i &lt; 32:
+                F = (d AND b) OR ((NOT d) AND c)
+                g = (5*i + 1) mod 16
+            else if 32 ≤ i &lt; 48:
+                F = b XOR c XOR d
+                g = (3*i + 5) mod 16
+            else:
+                F = c XOR (b OR (NOT d))
+                g = (7*i) mod 16
+            
+            temp = d
+            d = c
+            c = b
+            b = b + left_rotate((a + F + K[i] + M[g]), s[i])
+            a = temp
+
+        A = A + a
+        B = B + b
+        C = C + c
+        D = D + d
+    
+    return concatenate(A, B, C, D) as 128-bit hash
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                MD5 is insecure and obselete:
+                <b>Vulnerabilities:</b>
+                <ul>
+                    <li><b>Collision attacks</b> (first demonstrated in 2004)</li>
+                    <li><b>Chosen-prefix attacks</b> (useful for spoofing certificates)</li>
+                    <li><b>Preimage attacks</b> (not practical yet, but close)</li>
+                </ul>
+                <b>Real-World Exploits:</b>
+                <ul>
+                    <li><b>2008:</b> Researchers created a rogue Certificate Authority using MD5 collisions</li>
+                    <li><b>2012+:</b> Practical collision generation within seconds on GPUs</li>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <b>Historical Uses:</b>
+                <ul>
+                    <li>File integrity checking</li>
+                    <li>Password hashing</li>
+                    <li>Digital signatures</li>
+                    <li>Message authenticaion codes</li>
+                </ul>
+            </div>
         </div>
-        <div id="blake2-info">
+        <div class="left-al" id="blake2-info">
             <div class="rw-bigtext">BLAKE2</div>
-            <div class="rw-text">blake2</div>
+            <hr>
+            <div class="rw-text">
+                BLAKE2 is a high-speed cryptographic hash function designed as a secure, faster replacement for MD5, SHA-1, and SHA-2. It comes in two main variants:
+                <ul>
+                    <li><b>BLAKE2b:</b> optimized for 64-bit platforms; produces 512-bit hashes (or less)</li>
+                    <li><b>BLAKE2s:</b> optimized for 8- to 32-bit platforms; produces 256-bit hashes (or less)</li>
+                </ul>
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Developed by Jean-Philippe Aumasson, Samuel Neves, Zooko Wilcox-O'Hearn, and Christian Winnerlein</li>
+                        <li>Released in 2012 as a refinement of the BLAKE hash function (a SHA-3 finalist)</li>
+                        <li>Widely used and Standardized in RFC 7693 (2015)</li>
+                    </ul>
+                    <b>Successor: BLAKE3</b>
+                    <ul>
+                        <li>BLAKE3 (2020) is based on BLAKE2, designed for parallelism and extreme speed.</li>
+                        <li>BLAKE2 remains widely used for its balance of performance and simplicity.</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+function BLAKE2b(message, key = optional, salt = optional, personal = optional):
+    // Initialization Vector (IV)
+    IV = [
+    0x6A09E667F3BCC908, 0xBB67AE8584CAA73B,
+    0x3C6EF372FE94F82B, 0xA54FF53A5F1D36F1,
+    0x510E527FADE682D1, 0x9B05688C2B3E6C1F,
+    0x1F83D9ABFB41BD6B, 0x5BE0CD19137E2179
+    ]
+
+    // Parameter block setup (hash length, key length, salt, etc.)
+    param_block = configure_parameters(output_length, key_length, salt, personal)
+ 
+    // Initialize state vector h with IV XOR param_block
+    h = IV XOR param_block
+
+    // Preprocess: key prepending if key is used
+    if key != null:
+        message = key || padding || message
+ 
+    // Process message in 128-byte blocks
+    for each 128-byte block m_i:
+        v = h || IV // 8 h-values and 8 IV constants
+        m = parse_block(m_i)
+    
+        for r from 0 to 12: // 12 rounds
+            // Apply 8 G-mixing operations using sigma schedule
+            for i = 0 to 7:
+                G(v[a], v[b], v[c], v[d], m[sigma[r][2i]], m[sigma[r][2i+1]])
+
+    // XOR the final state into the hash vector
+    for i = 0 to 7:
+        h[i] = h[i] XOR v[i] XOR v[i+8]
+ 
+    return h[0..digest_size]
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                BLAKE2 is highly secure, with no known practical attacks:
+                <ul>
+                    <li>Based on BLAKE (SHA-3 finalist), which was extensively analyzed</li>
+                    <li>Resistant to:</li>
+                    <ul>
+                        <li>Collision attacks</li>
+                        <li>Preimage/second-preimage attacks</li>
+                        <li>Length-extension attacks</li>
+                    </ul>
+                </ul>
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>General-purpose hashing</li>
+                    <li>Message Authentication</li>
+                    <li>Password Hashing and Storage</li>
+                    <li>Cryptographic Protocols</li>
+                </ul>
+            </div>
         </div>
-        <div id="fsb-info">
-            <div class="rw-bigtext">Fast Syndrome-Based (FSB)</div>
-            <div class="rw-text">fsb</div>
-        </div>
-        <div id="gost-info">
-            <div class="rw-bigtext">Gosudarstvennyy Standart (GOST)</div>
-            <div class="rw-text">gost</div>
+        <div class="left-al" id="gost-info">
+            <div class="rw-bigtext">GOST R 34.11-2012 (Stribog)</div>
+            <hr>
+            <div class="rw-text">
+                Stribog is a cryptographic hash function standardized as GOST R 34.11-2012. It supports two output lengths: 256 bits and 512 bits, similar in purpose to SHA-256 and SHA-512. Stribog is designed to secure, flexible, and government-approved for use in the Russian Federation.
+                <div class="rw-bigtext">&nbsp;</div>
+                <div class="rw-bigtext">History</div>
+                    <b>Origin:</b>
+                    <ul>
+                        <li>Developed by the Federal Security Serverice (FSB) of Russia</li>
+                        <li>Replaces the earlier hash standard GOST R 34.11-94</li>
+                        <li>Published in 2012 and named Stribog, after a Slavic deity of wind</li>
+                    </ul>
+                    <b>Based On:</b>
+                    <ul>
+                        <li>Luby-Rackoff and wide-trail strategy (like AES)</li>
+                        <li>Modified AES-like components and tailored S-boxes for cryptographic strength.</li>
+                    </ul>
+                    <b>Standardization:</b>
+                    <ul>
+                        <li>Standardized in GOST 34.11-2012</li>
+                        <li>Part of the Russian antional cryptographic suite</li>
+                    </ul>
+                <div class="rw-bigtext">Pseudocode</div>
+                <pre>
+function Stribog(message, output_size = 512):
+    // Initialization vectors:
+    if output_size == 512:
+        IV = 512 bits of 0x00
+    else:
+        IV = 512 bits of 0x01
+
+    // Initial state
+    h = IV
+    N = 0 // Bit length counter
+    Sigma = 0 // Accumulator for all message blocks
+ 
+    // Pad the message to multiple of 512 bits
+    padded = pad(message)
+ 
+    // Process message in 512-bit blocks
+    for each block m_i in padded:
+        h = compress(h, m_i, N)
+        N = N + len(m_i)
+        Sigma = Sigma + m_i
+    
+    // Finalization
+    h = compress(h, N, 0)
+    h = compress(h, Sigma, 0)
+ 
+    if output_size == 256:
+        return h[256:512] // Truncate to lower 256 bits
+    else:
+        return h // Full 512-bit hash
+
+                </pre>
+                <div class="rw-bigtext">Security Analysis</div>
+                Stribog is considered cryptographically secure with no known practical vulnerabilities as of today.
+                <b>Security Properties:</b>
+                <ul>
+                    <li><b>Collision resistance:</b> 128-bit (for 256-bit output), 256-bit (for 512-bit output)</li>
+                    <li><b>Preimage resistance:</b> Equal to hash size</li>
+                    <li>No known structural weaknesses</li>
+                </ul>
+                Stribog benefits from well-understoof cryptographic primitives and is considered robust for digital signature schemes.
+                <div class="rw-bigtext">Use Cases</div>
+                <ul>
+                    <li>Digital Signatures</li>
+                    <li>Message Integrity & Hashing</li>
+                    <li>Cryptographic Primitives</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
