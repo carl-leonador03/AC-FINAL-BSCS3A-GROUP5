@@ -32,6 +32,7 @@ const tabDict = {
 
 function switchTab(t) {
     document.querySelector('input[type="radio"].rw-ui#text-input').checked = true;
+    switchInput("text");
 
     if (Object.keys(tabDict).includes(t))
     {
