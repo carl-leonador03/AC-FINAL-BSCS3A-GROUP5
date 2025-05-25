@@ -7,7 +7,7 @@ const algoBars = {
     "hash": "hash-bar"
 }
 
-const algo = ["des", "aes", "bf", "idea", "rsa", "ecc", "sha1", "sha256", "md5", "blake2", "fsb", "gost"];
+const algo = ["des", "aes", "bf", "idea", "rsa", "ecc", "sha1", "sha256", "sha3-256", "md5", "blake2", "gost"];
 
 function initButtons()
 {
@@ -24,9 +24,9 @@ function initButtons()
     document.querySelector('input[type="radio"].rw-ui#ecc-button').addEventListener("click", () => switchAlgo("ecc"));
     document.querySelector('input[type="radio"].rw-ui#sha1-button').addEventListener("click", () => switchAlgo("sha1"));
     document.querySelector('input[type="radio"].rw-ui#sha256-button').addEventListener("click", () => switchAlgo("sha256"));
+    document.querySelector('input[type="radio"].rw-ui#sha3-256-button').addEventListener("click", () => switchAlgo("sha3-256"));
     document.querySelector('input[type="radio"].rw-ui#md5-button').addEventListener("click", () => switchAlgo("md5"));
     document.querySelector('input[type="radio"].rw-ui#blake2-button').addEventListener("click", () => switchAlgo("blake2"));
-    document.querySelector('input[type="radio"].rw-ui#fsb-button').addEventListener("click", () => switchAlgo("fsb"));
     document.querySelector('input[type="radio"].rw-ui#gost-button').addEventListener("click", () => switchAlgo("gost"));
 }
 
@@ -45,6 +45,7 @@ function switchTab(t) {
 function switchAlgo(a) {
     for (var al of algo)
     {
+        console.log(al);
         if (al == a)
         {
             document.querySelector("div#" + al + "-info").style.display = null;
