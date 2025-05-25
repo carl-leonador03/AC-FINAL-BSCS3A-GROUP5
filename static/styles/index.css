@@ -188,3 +188,10 @@ button#copy-public-key, button#copy-private-key {
     flex-direction: start;
     text-align: left;
 }
+
+#logo {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
