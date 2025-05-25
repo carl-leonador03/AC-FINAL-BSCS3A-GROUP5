@@ -38,7 +38,7 @@ def aes(key: bytes, data: bytes, mode: int = 0) -> bytes:
     """
 
     if len(key) <= 32:
-        key = pad(key, 32)
+        if len(key) < 32: key = pad(key, 32)
         cipher = AES.new(key, AES.MODE_CBC, aes_iv)
         if mode == 0:
             return cipher.encrypt(pad(data, 16))
@@ -60,7 +60,7 @@ def blowfish(key: bytes, data: bytes, mode: int = 0) -> bytes:
     """
 
     if len(key) <= 56:
-        key = pad(key, 56)
+        if len(key) < 56: key = pad(key, 56)
         cipher = Blowfish.new(key, Blowfish.MODE_CBC, blowfish_iv)
         if mode == 0:
             return cipher.encrypt(pad(data, cipher.block_size))
