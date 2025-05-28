@@ -12,12 +12,14 @@ The final project for our course named Applied Cryptography is a cryptographic a
 This web application gives the user the ability to make use of symmetric algorithms, asymmetric algorithms, and hashing functions, of which they can use for their cryptographic needs. Cryptography is the science of encoding and decoding messages to protect their confidentiality, integrity, and authenticity. It allows the user to have a secure conversation and connection between its recipient and its sender.
 
 # Project Objectives
-This project exists to be able to attain the following goals:
+This project exists to be able to attain the following goals or objectives:
 1. Allow users to explore and use the algorithms and functions that are (and was) in use within the world of secure and encrypted digital data.
 2. Educate the user with a brief summary of the importance and legacy of each of the algorithms and functions used in the project.
 3. Encourage young and aspiring cryptologists, security experts, and app developers to make use and explore cryptography for their security-related needs.
 
 # Discussions
+
+YouTube Discussion link: Will be provided
 
 ## Application architecture and UI
 The web application is created with Flask using Python 3.10+. The backend of the web application is simplified to have general processes be separate modules, such as symmetric algorithms being in a separate Python module.
