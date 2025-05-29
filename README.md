@@ -21,7 +21,7 @@ This project exists to be able to attain the following goals or objectives:
 
 # Discussions
 
-YouTube Discussion link: (https://youtu.be/yqaoMgzsJ9k)[https://youtu.be/yqaoMgzsJ9k]
+YouTube Discussion link: (https://youtu.be/4poQ9AN3vEE)[https://youtu.be/4poQ9AN3vEE]
 
 ## Application architecture and UI
 The web application is created with Flask using Python 3.10+. The backend of the web application is simplified to have general processes be separate modules, such as symmetric algorithms being in a separate Python module.
